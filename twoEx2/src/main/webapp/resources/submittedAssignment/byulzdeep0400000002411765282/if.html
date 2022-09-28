@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function myFunction() {
+            if (document.getElementById('inputElement').value == '1') {
+                alert(true);
+            } else if (document.getElementById('inputElement').value == '0') {
+                alert(false);
+            } else {
+                alert('1 또는 0 을 입력해주세요');
+            }
+        }
+    </script>
+</head>
+<body>
+    <label>1 또는 0 을 입력해주세요
+        <input type="text" id="inputElement">
+    </label>
+    <button onclick="myFunction()">확인</button>
+</body>
+
+</html>

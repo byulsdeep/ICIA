@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.twoEx.inter.MapperInterfaceHJW">
+	<update id="updEmail" parameterType="com.twoEx.bean.BuyerBean">
+		UPDATE BUY
+		SET BUY_EMAIL =
+		#{buyEmail}
+		WHERE BUY_CODE = #{buyCode}
+
+	</update>
+	<update id="updRegion" parameterType="com.twoEx.bean.BuyerBean">
+		UPDATE BUY
+		SET BUY_Region =
+		#{buyRegion}
+		WHERE BUY_CODE = #{buyCode}
+
+	</update>
+	<select id="getOrderList"
+		parameterType="com.twoEx.bean.BuyerBean"
+		resultType="com.twoEx.bean.GetMyPageBean">
+		Select TO_CHAR(ORD_DATE, 'YYYY-MM-DD') AS ORDDATE,
+		PRD_NAME AS PRDNAME,
+		TO_CHAR(PRD_PRICE, 'FM999,999,999,999') AS PRDPRICE,
+		PRD_CODE AS PRDCODE,
+		PRD_SELCODE AS PRDSELCODE,
+		PRD_CTECODE AS PRDCTECODE,
+		PRD_INFO AS PRDINFO,
+		PRD_TYPE AS PRDTYPE,
+		PRF_LOCATION AS PRFLOCATION
+		from PRD INNER
+		JOIN ORD ON ORD_PRDCODE = PRD_CODE AND ORD_PRDSELCODE =
+		PRD_SELCODE AND
+		ORD_PRDCTECODE = PRD_CTECODE
+		INNER JOIN PRF ON PRF_PRDCODE = PRD_CODE
+		AND PRF_PRDCTECODE = PRD_CTECODE
+		AND PRF_PRDSELCODE = PRD_SELCODE
+		WHERE
+		ORD_BUYCODE = #{buyCode}
+		order by ORD_DATE DESC
+	</select>
+
+	<select id="getOrderList6"
+		parameterType="com.twoEx.bean.BuyerBean"
+		resultType="com.twoEx.bean.GetMyPageBean">
+		Select TO_CHAR(ORD_DATE, 'YYYY-MM-DD') AS ORDDATE,
+		PRD_NAME AS PRDNAME,
+		TO_CHAR(PRD_PRICE, 'FM999,999,999,999') AS PRDPRICE,
+		PRD_CODE AS PRDCODE,
+		PRD_SELCODE AS PRDSELCODE,
+		PRD_CTECODE AS PRDCTECODE,
+		PRD_INFO AS PRDINFO,
+		PRD_TYPE AS PRDTYPE,
+		PRF_LOCATION AS PRFLOCATION
+		from PRD INNER
+		JOIN ORD ON ORD_PRDCODE = PRD_CODE AND ORD_PRDSELCODE =
+		PRD_SELCODE AND
+		ORD_PRDCTECODE = PRD_CTECODE
+		INNER JOIN PRF ON PRF_PRDCODE = PRD_CODE
+		AND PRF_PRDCTECODE = PRD_CTECODE
+		AND PRF_PRDSELCODE = PRD_SELCODE
+		WHERE
+		ORD_BUYCODE = #{buyCode} AND TO_CHAR(ORD_DATE, 'YYYYMMDD') >=
+		to_char(add_months(SYSDATE,-6),'YYYYMMDD')
+		order by ORD_DATE DESC
+	</select>
+
+	<select id="getOrderList3"
+		parameterType="com.twoEx.bean.BuyerBean"
+		resultType="com.twoEx.bean.GetMyPageBean">
+		Select TO_CHAR(ORD_DATE, 'YYYY-MM-DD') AS ORDDATE,
+		PRD_NAME AS PRDNAME,
+		TO_CHAR(PRD_PRICE, 'FM999,999,999,999') AS PRDPRICE,
+		PRD_CODE AS PRDCODE,
+		PRD_SELCODE AS PRDSELCODE,
+		PRD_CTECODE AS PRDCTECODE,
+		PRD_INFO AS PRDINFO,
+		PRD_TYPE AS PRDTYPE,
+		PRF_LOCATION AS PRFLOCATION
+		from PRD INNER
+		JOIN ORD ON ORD_PRDCODE = PRD_CODE AND ORD_PRDSELCODE =
+		PRD_SELCODE AND
+		ORD_PRDCTECODE = PRD_CTECODE
+		INNER JOIN PRF ON PRF_PRDCODE = PRD_CODE
+		AND PRF_PRDCTECODE = PRD_CTECODE
+		AND PRF_PRDSELCODE = PRD_SELCODE
+		WHERE
+		ORD_BUYCODE = #{buyCode} AND TO_CHAR(ORD_DATE, 'YYYYMMDD') >=
+		to_char(add_months(SYSDATE,-3),'YYYYMMDD')
+		order by ORD_DATE DESC
+	</select>
+
+	<select id="getOrderList1"
+		parameterType="com.twoEx.bean.BuyerBean"
+		resultType="com.twoEx.bean.GetMyPageBean">
+		Select TO_CHAR(ORD_DATE, 'YYYY-MM-DD') AS ORDDATE,
+		PRD_NAME AS PRDNAME,
+		TO_CHAR(PRD_PRICE, 'FM999,999,999,999') AS PRDPRICE,
+		PRD_CODE AS PRDCODE,
+		PRD_SELCODE AS PRDSELCODE,
+		PRD_CTECODE AS PRDCTECODE,
+		PRD_INFO AS PRDINFO,
+		PRD_TYPE AS PRDTYPE,
+		PRF_LOCATION AS PRFLOCATION
+		from PRD INNER
+		JOIN ORD ON ORD_PRDCODE = PRD_CODE AND ORD_PRDSELCODE =
+		PRD_SELCODE AND
+		ORD_PRDCTECODE = PRD_CTECODE
+		INNER JOIN PRF ON PRF_PRDCODE = PRD_CODE
+		AND PRF_PRDCTECODE = PRD_CTECODE
+		AND PRF_PRDSELCODE = PRD_SELCODE
+		WHERE
+		ORD_BUYCODE = #{buyCode} AND TO_CHAR(ORD_DATE, 'YYYYMMDD') >=
+		to_char(add_months(SYSDATE,-1),'YYYYMMDD')
+		order by ORD_DATE DESC
+	</select>
+
+	<select id="getOrderDate"
+		parameterType="com.twoEx.bean.GetMyPageBean"
+		resultType="com.twoEx.bean.GetMyPageBean">
+		<![CDATA[
+		Select TO_CHAR(ORD_DATE, 'YYYY-MM-DD') AS ORDDATE,
+		PRD_NAME AS PRDNAME,
+		TO_CHAR(PRD_PRICE, 'FM999,999,999,999') AS PRDPRICE,
+		PRD_CODE AS PRDCODE,
+		PRD_SELCODE AS PRDSELCODE,
+		PRD_CTECODE AS PRDCTECODE,
+		PRD_INFO AS PRDINFO,
+		PRD_TYPE AS PRDTYPE,
+		PRF_LOCATION AS PRFLOCATION
+		from PRD INNER JOIN ORD ON ORD_PRDCODE = PRD_CODE AND ORD_PRDSELCODE = PRD_SELCODE AND ORD_PRDCTECODE = PRD_CTECODE
+		         INNER JOIN PRF ON PRF_PRDCODE = PRD_CODE AND PRF_PRDCTECODE = PRD_CTECODE AND PRF_PRDSELCODE = PRD_SELCODE
+        WHERE ORD_BUYCODE = #{buyCode} AND TO_DATE(#{orderFromDate}, 'YYYY-MM-DD') <= ORD_DATE AND TO_DATE(#{orderToDate}, 'YYYY-MM-DD') >= ORD_DATE
+        order by ORD_DATE DESC
+        ]]>
+	</select>
+
+
+	<select id="getViewHistoryList"
+		parameterType="com.twoEx.bean.BuyerBean"
+		resultType="com.twoEx.bean.GetMyPageBean">
+		SELECT 
+			PRD_NAME AS PRDNAME,
+			PRD_CODE AS PRDCODE,
+			PRD_SELCODE AS PRDSELCODE,
+			PRD_CTECODE AS PRDCTECODE,
+			PRD_INFO AS PRDINFO,
+			TO_CHAR(PRD_PRICE, 'FM999,999,999,999') AS PRDPRICE,
+			VHS_DATE AS ORDDATE,
+			PRF_LOCATION AS PRFLOCATION
+		FROM
+			PRD LEFT JOIN PRF ON PRF_PRDCODE = PRD_CODE AND PRF_PRDCTECODE =
+			PRD_CTECODE AND PRF_PRDSELCODE = PRD_SELCODE
+			INNER JOIN VHS ON PRD_CODE
+			= VHS_PRDCODE AND PRD_SELCODE = VHS_PRDSELCODE
+			AND PRD_CTECODE =
+			VHS_PRDCTECODE AND VHS_BUYCODE = #{buyCode}
+		order by ORDDATE DESC
+		
+	</select>
+	<select id="getMoveClassList"
+		parameterType="com.twoEx.bean.BuyerBean"
+		resultType="com.twoEx.bean.ClassroomBean">
+		SELECT * FROM "2ex".MOVEMYCLASS
+		WHERE BUYCODE = #{buyCode}
+
+	</select>
+	<select id="getWishList"
+		parameterType="com.twoEx.bean.BuyerBean"
+		resultType="com.twoEx.bean.GetMyPageBean">
+		SELECT 
+			PRD_NAME AS PRDNAME,
+			PRD_CODE AS PRDCODE,
+			PRD_SELCODE AS PRDSELCODE,
+			PRD_CTECODE AS PRDCTECODE,
+			PRD_INFO AS PRDINFO,
+			TO_CHAR(PRD_PRICE, 'FM999,999,999,999') AS PRDPRICE,
+			VHS_DATE AS ORDDATE,
+			PRF_LOCATION AS PRFLOCATION
+		FROM PRD INNER JOIN PRF ON PRF_PRDCODE = PRD_CODE AND PRF_PRDCTECODE =
+		PRD_CTECODE AND PRF_PRDSELCODE = PRD_SELCODE
+		INNER JOIN VHS ON PRD_CODE = VHS_PRDCODE AND PRD_SELCODE = VHS_PRDSELCODE
+		AND PRD_CTECODE = VHS_PRDCTECODE AND VHS_WISHACTION = 'Y' AND
+		VHS_BUYCODE = #{buyCode}
+		order by ORDDATE DESC
+	</select>
+
+	<select id="getFollowList"
+		parameterType="com.twoEx.bean.BuyerBean"
+		resultType="com.twoEx.bean.SellerBean">
+		SELECT SEL_NICKNAME AS SELNICKNAME,
+			   SEL_CODE AS SELCODE,
+		       SEL_SHOPNAME AS SELSHOPNAME,
+		       SEL_CODE AS SELCODE,
+               SEF_LOCATION AS SEFLOCATION
+		FROM SEL INNER JOIN FOL ON FOL_SELCODE = SEL_CODE
+                 LEFT JOIN SEF ON SEL_CODE = SEF_SELCODE
+		WHERE FOL_BUYCODE = #{buyCode}
+	</select>
+	<delete id="deleteNotice" parameterType="com.twoEx.bean.NoticeBean" >
+	 DELETE FROM NTC WHERE NTC_CODE = #{ntcCode} AND NTC_CLAPRDCODE = #{ntcClaPrdCode} AND NTC_CLASELCODE = #{ntcClaSelCode} AND NTC_CLACTECODE = #{ntcClaCteCode}
+	</delete>
+	<update id="updateNotice" parameterType="com.twoEx.bean.NoticeBean" >
+	 UPDATE NTC SET NTC_NAME = #{ntcName}, NTC_INFO = #{ntcInfo}  WHERE NTC_CODE = #{ntcCode} AND NTC_CLAPRDCODE = #{ntcClaPrdCode} AND NTC_CLASELCODE = #{ntcClaSelCode} AND NTC_CLACTECODE = #{ntcClaCteCode}
+	</update>
+	
+</mapper>

@@ -1,0 +1,638 @@
+@charset "UTF-8";
+
+/* [ 메인페이지 ] ************************************/
+
+#home,
+#main__category__section,
+#main__popularProduct__section{
+  /*
+  padding-top: 20px;
+  padding-bottom: 20px;
+  */
+  /*padding : 1.3rem 10rem; */
+  /*margin: auto;*/
+  padding: 5px;
+  padding-top :35px;
+  /*width : 1300px;*/
+  width: 1300px;
+  margin: auto;
+
+}
+
+/** 메인 홈 **/
+#home {
+    /*background: url('imgs/home-background.png') center/cover no-repeat;*/
+    width: 100%;
+    padding-top: 65px;
+    
+    
+    text-align: center;
+    color: var(--color-white);
+    /*background: url('gradient_veriperi_3.png') center/cover no-repeat;*/
+    background-color: rgb(120, 137, 189);
+    /* background-image: linear-gradient(to top, rgb(75, 165, 156) 0%, #6592B8 100%);*/
+    
+
+    display:flex;
+    justify-content:space-between;
+    align-items: center
+  }
+
+
+  .home_wrapper{
+    margin : 0 auto;
+    /*width : 100%;*/
+    width : 1100px;
+  
+    /*padding: */
+    /*padding-right : 200px;*/
+    text-align: center;
+    color:white;
+    display:flex;
+    justify-content:space-between;
+    align-items: center
+
+  }
+
+
+  .home__container{
+    width : 600px;
+
+  }
+  
+    .home__container h1{
+      color:white;
+    }
+    
+  .layer__wrapper{
+    position:relative;
+    width : 750px;
+    height : 300px;
+
+  }
+
+  .team__container__layer{
+    position: absolute; 
+    top:65px;
+    right:0px;
+
+    width : 450px;
+    height : 300px;
+    border: solid 1px var(--color-headerGrey);
+
+    padding: 10px;
+    border-radius: 10px;
+    background-color: var(--color-blue1);
+    box-shadow: 1.5px 1.5px 5px 1px rgb(34, 113, 105);
+
+    z-index: 3;
+    background: url('res/imgs/developers.jpeg') center/cover no-repeat;
+  }
+
+.backlayer1{
+  position: absolute; 
+  top:55px;
+  right:15px;
+  border-radius: 10px;
+  
+  width : 450px;
+  height : 300px;
+  background-color: #bacbec;
+  z-index: 2;
+}
+
+.backlayer2{
+  position: absolute; 
+  top:45px;
+  right: -15px;
+  border-radius: 10px;
+
+  width : 450px;
+  height : 300px;
+  background-color: #b49fe7;
+  z-index: 1;
+}
+
+
+.team__introduction__div{
+  display: flex;
+  flex-direction: column;
+  justify-content:space-between;
+  align-items: center;
+
+}
+
+.team__introduction__div.top{
+  height : 235px;
+
+
+}
+.team__introduction__div.bottom{
+  padding: 10px 17px;
+
+  color: var(--color-white);
+  font-size: 20px;
+  font-weight: 700;
+
+  background-color: var(--color-blueGreen);
+  opacity: 95%;
+}
+
+
+
+/****************************************************/
+  .home__title,
+  .home__description {
+    /*padding : 0 350px;*/
+    width : 1200px;
+    color: var(--color-white);
+    text-align: center;
+  }
+  
+  .home__title{
+    padding-top : 30px;
+    
+    margin:auto;
+  }
+  
+  .home__description{
+  }
+  
+  .home__contact {
+    color: var(--color-white);
+    font-size: var(--font-regular);
+    font-weight: var(--weight-bold);
+    margin: 24px;
+    padding: 8px 12px;
+    border: 2px solid var(--color-white);
+    border-radius: var(--size-border-radius);
+  }
+  
+  
+  
+  /* MainPage Category */
+  #main__category__section{
+
+  }
+
+  
+  .main__category__items {
+    border-radius: var(--border-radius1);
+    padding: 0px 20px;
+    padding-top: 15px;
+    /*background-color: var(--color-whiteGrey);*/
+    
+    display: flex;
+    justify-content: space-between;
+  
+  }
+  
+  .main_category__item{
+   
+    font-size: 15px;
+    text-align: center;
+    cursor: pointer;
+  }
+  
+  .main_category__item h2{  
+    font-size: 19px;
+  }
+
+  .category__icon {
+    width: 90px;
+    height: 90px;
+    line-height: 90px;
+    
+    margin: auto;
+    border: 1px solid var(--color-blue);
+    border-radius: 20%;
+    margin-bottom: 16px;
+    
+    font-size: 40px;
+    text-align: center;
+    /*color: var(--color-blue);*/
+  }
+  
+  
+  .category__icon i {
+    transition: all var(--animation-duration) ease;
+  }
+  
+  .category__icon:hover i {
+    /* color: var(--color-pink); */
+    transform: rotate(-30deg) scale(1.1);
+  }
+  
+  
+  /** 색깔 주기 **/
+  .symbol_0{
+    color : rgb(222, 43, 43);
+  }
+  .symbol_1{
+    color : rgb(255, 77, 0);
+  }
+  .symbol_2{
+    color : rgb(255, 196, 0);
+  }
+  .symbol_3{
+    color : rgb(29, 133, 29);
+  }
+  .symbol_4{
+    color : rgb(43, 222, 156);
+  }
+  .symbol_5{
+    color : var(--color-classicBlue);
+  }
+  .symbol_6{
+    color : navy;
+  }
+  .symbol_7{
+    color : var(--color-veryPeri);
+  }
+  .symbol_99{
+    color : purple;
+  }
+  
+  .main__category__title,
+  .major__description {
+    color: var(--color-dark-grey);
+  }
+  
+  .main__category__title{
+    font-size: 20px;
+  }
+  
+  .main__category__description {
+    font-size: var(--font-small);
+  }
+  
+  
+  
+  
+  
+  
+  /*** 핫 아이템 ********************************************/
+
+  .productItem__wrapper{
+    margin : 10px;
+    height : 500.5px;
+    width : 300px;
+    text-align: left;
+    cursor:pointer;
+  }
+
+  #main__popularProduct__section{
+    /*padding : 1.3rem 10rem; */
+
+  }
+  
+  .productList__container{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding : 0px;
+    padding-left : 45px;
+    padding-right: 55px;
+  
+  }
+
+
+  .product__item.rank{
+    position: relative;
+    min-height: 455px;
+
+  }
+
+  .product__price__div.rank{
+    position:absolute;
+    right: 5px;
+    bottom: 45px;
+  }
+  
+  .product__etc__div.rank{
+    position:absolute;
+    right: 5px;
+    bottom: 15px;
+  }
+
+  /** product 엘리먼트 *******/
+  /*
+  .product__item{
+    margin : 15px;
+    
+    height : 450px;
+    width : 280px;
+    border : solid 3px #898a96;
+    border-radius: var(--border-radius3);
+    padding : 0.7rem;
+
+  
+    align-items: flex-start;
+  
+  
+    color: var(--color-black);
+    text-align: center;
+    
+    cursor:pointer;
+  }
+  
+  
+  .product__image__div{
+    width : 100%;
+    height : 200px;
+    background-color: var(--color-headerGrey);
+    
+    margin-bottom : 20px;
+  }
+  
+  .product__seller__div,
+  .product__title__div,
+  .product__price__div,
+  .product__etc__div,
+  .product__btn__div{
+    margin-bottom: 10px;;
+  
+  }
+  
+  
+  
+  .product__image{
+    height : 100%;
+    width : 100%;
+  
+  }
+  
+  
+  .product__seller__div{
+    text-align: start;
+    font-size: 16px;
+  }
+  
+  .product__seller__div span{
+    margin-right : 5px;
+  }
+  
+  .product__title__div{
+    text-align: start;
+    font-size: 22px;
+    font-weight: 550;
+    color: black;
+  }
+  
+  
+  .product__price__div{
+    text-align: end;
+    font-size: 22px;
+  }
+  
+  .product__btn__div{
+    padding : 5px;
+    color: var(--color-black);
+  
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .product__etc__div{
+    padding : 5px;
+    color: var(--color-black);
+  
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  */
+  
+  
+  
+  /*** hotItem 
+
+  }
+  ***/
+
+
+  /*** 사용자 후기 Testimonial ***/
+  #testimonials {
+    background-color: #99aea1;
+  }
+  
+  .testimonials {
+    margin: 40px;
+  }
+  
+  .testimonial {
+    display: flex;
+    margin: 32px 0;
+  }
+  
+  .testimonial__avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+  }
+  
+  .testimonial__avatar:nth-child(odd) {
+    margin-right: 40px;
+  }
+  
+  .testimonial__avatar:nth-child(even) {
+    margin-left: 40px;
+  }
+  
+  .testimonial__speech-bubble {
+    padding: 18px;
+    background-color: var(--color-white);
+    border-radius: var(--size-border-radius);
+  }
+  
+  .testimonial__speech-bubble p {
+    color: var(--color-light-grey);
+  }
+  
+  .testimonial__speech-bubble a {
+    color: var(--color-pink);
+  }
+  
+  
+/** [ 메인 모달 ] **********************************************************/
+
+/* 멤버 별 */
+#member__khb{
+  display : none;
+}
+
+#member__kyc{
+  display : none;
+}
+
+#member__sjh{
+  display : none;
+
+}
+
+#member__lgj{
+  display : none;
+
+}
+
+#member__lse{
+  display : none;
+
+}
+#member__hjw{
+  display : none;
+
+}
+
+.modal2__root{
+  position: fixed;
+  top:0px;
+  bottom:0px;
+  width : 100%;
+  height : 100%;    
+  z-index: 20;
+}
+
+/************/
+
+.modal2__background{
+  position :fixed;
+  width : 100%;
+  height : 100%;
+
+  background-color: rgba(0, 0, 0, 0.5);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.modal2__wrapper{
+  width : 100%;
+  height : 100%;
+
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal2__wrapper2{
+  width : 700px;
+  height : 400px;
+}
+
+.modal2__container{
+  position:relative;
+  top: 10px;
+  border:dotted 2px grey;
+  width : 700px;
+  height : 400px;
+}
+
+.modal2__close{
+  position: absolute;
+  height : 15px;
+  width : 15px;
+  top: 5px;
+  left: 660px;
+
+  font-size: 30px;
+}
+
+.modal2__content{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  /*border: solid 1px var(--color-headerGrey);*/
+  border-radius: 20px;
+  box-shadow: 0.5px 0.5px 2px 0px rgb(87, 87, 87);
+
+  width : 100%;
+  height : 100%;
+  background-color: white;
+  
+  z-index: 25;
+  overflow: hidden;
+}
+
+.modal2__part__left,
+.modal2__part__right{
+  /*border:dotted 2px grey;*/
+  
+  padding : 15px 30px;
+
+}
+
+.modal2__part__left{
+  width : 60%;
+  height : 705%;
+
+  background-color: #73aace;
+  background: url("breakfast.jpg") center/cover no-repeat;
+  background-size: contain;
+
+}
+
+.modal2__part__right{
+  width : 40%;
+  height : 100%;
+}
+
+/********************************************/
+
+
+
+/********************************************/
+
+
+.member{
+  width : 50px;
+  height : 50px;
+  border : transparent;
+  border-radius: 50%;
+  /*background-color:var(--color-pink);*/
+  background-color: transparent;
+  /*opacity:0.3;*/
+  color: transparent;
+  cursor:pointer;
+
+}
+
+.member:hover{
+  background-color:var(--color-pink);
+  color: white;
+  font-size: 15px;
+  font-weight: 550;
+  opacity:0.5;
+}
+
+#lse{
+  position: absolute;
+  top: 160px;
+  left: 140px;
+}
+#khb{
+  position: absolute;
+  top: 40px;
+  left: 285px;
+}
+#kyc{
+  position: absolute;
+  top: 20px;
+  left: 100px;
+}
+#sjh{
+  position: absolute;
+  top: 155px;
+  left: 305px;
+}
+#lgj{
+  position: absolute;
+  top: 25px;
+  left: 200px;
+}
+#hjw{
+  position: absolute;
+  top: 150px;
+  left: 215px;
+}

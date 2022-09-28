@@ -1,0 +1,149 @@
+/*   */
+.orderInfo__zone,
+.payInfo__zone{
+    border : dotted 0.5px var(--color-light-grey);
+}
+
+
+
+/* 구매정보 **********/
+.orderInfo__zone{
+    border : dotted 0.51px var(--color-light-grey);
+    width : 55rem;
+
+}
+
+.orderInfo__zone h3{
+    margin-bottom: 1rem;
+}
+
+.orderInfo{
+    margin-bottom: 1.5rem;
+
+    padding : 1rem 2rem;
+}
+
+
+
+/* 상품 */
+.orderInfo.productInfo__container{
+    border : dotted 0.5px var(--color-light-grey);
+    height: 13rem;
+    
+    top: 10.5rem;
+    
+}
+
+.productInfo{
+    border : dotted 0.5px var(--color-light-grey);
+    padding : 0 0.5rem;
+}
+
+.productInfo.product__image{
+    width : 8rem;
+    height : 6rem;
+}
+
+.productInfo__div{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+/* 구매자 */
+.orderInfo.buyerInfo__container{
+    border : dotted 0.5px var(--color-light-grey);
+    height: 10rem;
+}
+
+.buyerInfo.buyer__image{
+    width : 5rem;
+    height : 5rem;
+
+}
+
+.buyerInfo{
+    border : dotted 0.5px var(--color-light-grey);
+    padding : 0 0.5rem;
+}
+
+.buyerInfo__div{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+
+}
+
+
+/* 결제옵션 */
+.orderInfo.payOption__container{
+    
+
+    border : dotted 0.5px var(--color-light-grey);
+    height: 7rem;
+}
+
+
+
+/* 오른쪽 결제 정보 ****************/
+.payInfo__zone{
+    border : dotted 0.51px var(--color-light-grey);
+    width: 22rem;
+}
+
+
+.payInfo__container{
+    border : dotted 0.51px var(--color-light-grey);
+
+    height: 20rem;
+    top: 0.5rem;
+    position: sticky;
+  
+}
+
+.payInfo{
+    border : dotted 0.51px var(--color-light-grey);
+    width : 21.5rem;
+
+    padding: 1rem 1rem;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+
+/* 아이템들 */
+
+.payInfo.price__div{
+    position: absolute;
+
+    top: 0.5rem;
+    height: 5rem;
+    
+}
+
+.payInfo.payAmount__div{
+    position: absolute;
+
+    top: 6rem;
+    height: 5rem;
+}
+
+.payInfo.price__btnDiv{
+    position: absolute;
+
+    top: 11.5rem;
+    height : 5rem;
+}
+
+.btn__purchase.order{
+    width: 20rem;
+
+}
+
+.payInfo__container span{
+    margin : 0.5rem 1rem;
+    font-size: 22px;
+}

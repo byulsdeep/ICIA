@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.twoEx.inter.MapperInterfaceKYC">
+	<select id="getMoveSalesHistoryList" parameterType="com.twoEx.bean.SellerBean" resultType="com.twoEx.bean.SalesHistoryBean">
+		SELECT TO_CHAR(ORD_DATE,'YYYY-MM-DD') AS ORDDATE,
+       		   ORD_PRDSELCODE AS ORDPRDSELCODE,
+       		   PRD_NAME AS PRDNAME,
+       		   TO_CHAR(PRD_PRICE,'FM999,999,999,999') AS PRDPRICE,
+       		   PRF_FILNAME AS PRFFILNAME,
+       		   PRF_LOCATION AS PRFLOCATION,
+       		   ORD_PRDCTECODE AS ORDPRDCTECODE,
+       		   ORD_PRDCODE AS ORDPRDCODE
+		FROM ORD INNER JOIN PRD ON ORD_PRDSELCODE = PRD_SELCODE AND ORD_PRDCODE = PRD_CODE AND ORD_PRDCTECODE = PRD_CTECODE
+         		 INNER JOIN PRF ON PRD_CODE = PRF_PRDCODE AND PRD_SELCODE = PRF_PRDSELCODE AND PRF_PRDCTECODE = PRD_CTECODE 
+        WHERE ORD_PRDSELCODE = #{selCode} 
+        ORDER BY ORDDATE DESC			 
+	</select>
+	<select id="getJanMonthsSalesList" parameterType="com.twoEx.bean.SellerBean" resultType="com.twoEx.bean.SalesHistoryBean">
+		SELECT TO_CHAR(ORD_DATE,'YYYY-MM-DD') AS ORDDATE,
+       		   ORD_PRDSELCODE AS ORDPRDSELCODE,
+       		   PRD_NAME AS PRDNAME,
+       		   TO_CHAR(PRD_PRICE,'FM999,999,999,999') AS PRDPRICE,
+       		   PRF_FILNAME AS PRFFILNAME,
+       		   PRF_LOCATION AS PRFLOCATION,
+       		   ORD_PRDCTECODE AS ORDPRDCTECODE,
+       		   ORD_PRDCODE AS ORDPRDCODE
+		FROM ORD INNER JOIN PRD ON ORD_PRDSELCODE = PRD_SELCODE AND ORD_PRDCODE = PRD_CODE AND ORD_PRDCTECODE = PRD_CTECODE
+         		 INNER JOIN PRF ON PRD_CODE = PRF_PRDCODE AND PRD_SELCODE = PRF_PRDSELCODE AND PRF_PRDCTECODE = PRD_CTECODE
+         		 INNER JOIN BUY ON ORD_BUYCODE = BUY_CODE
+		WHERE ORD_PRDSELCODE = #{selCode} AND ORD_DATE >= (TO_CHAR(TRUNC(ADD_MONTHS(SYSDATE, -1)) , 'YYYYMMDD'))
+		ORDER BY ORDDATE DESC			 
+	</select>
+	<select id="getMarMonthsSalesList" parameterType="com.twoEx.bean.SellerBean" resultType="com.twoEx.bean.SalesHistoryBean">
+		SELECT TO_CHAR(ORD_DATE,'YYYY-MM-DD') AS ORDDATE,
+       		   ORD_PRDSELCODE AS ORDPRDSELCODE,
+       		   PRD_NAME AS PRDNAME,
+       		   TO_CHAR(PRD_PRICE,'FM999,999,999,999') AS PRDPRICE,
+       		   PRF_FILNAME AS PRFFILNAME,
+       		   PRF_LOCATION AS PRFLOCATION,
+       		   ORD_PRDCTECODE AS ORDPRDCTECODE,
+       		   ORD_PRDCODE AS ORDPRDCODE
+		FROM ORD INNER JOIN PRD ON ORD_PRDSELCODE = PRD_SELCODE AND ORD_PRDCODE = PRD_CODE AND ORD_PRDCTECODE = PRD_CTECODE
+         		 INNER JOIN PRF ON PRD_CODE = PRF_PRDCODE AND PRD_SELCODE = PRF_PRDSELCODE AND PRF_PRDCTECODE = PRD_CTECODE
+         		 INNER JOIN BUY ON ORD_BUYCODE = BUY_CODE
+		WHERE ORD_PRDSELCODE = #{selCode} AND ORD_DATE >= (TO_CHAR(TRUNC(ADD_MONTHS(SYSDATE, -3)) , 'YYYYMMDD'))
+		ORDER BY ORDDATE DESC		 
+	</select>
+ 	<select id="getJunMonthsSalesList" parameterType="com.twoEx.bean.SellerBean" resultType="com.twoEx.bean.SalesHistoryBean">
+		SELECT TO_CHAR(ORD_DATE,'YYYY-MM-DD') AS ORDDATE,
+       		   ORD_PRDSELCODE AS ORDPRDSELCODE,
+       		   PRD_NAME AS PRDNAME,
+       		   TO_CHAR(PRD_PRICE,'FM999,999,999,999') AS PRDPRICE,
+       		   PRF_FILNAME AS PRFFILNAME,
+       		   PRF_LOCATION AS PRFLOCATION,
+       		   ORD_PRDCTECODE AS ORDPRDCTECODE,
+       		   ORD_PRDCODE AS ORDPRDCODE
+		FROM ORD INNER JOIN PRD ON ORD_PRDSELCODE = PRD_SELCODE AND ORD_PRDCODE = PRD_CODE AND ORD_PRDCTECODE = PRD_CTECODE
+         		 INNER JOIN PRF ON PRD_CODE = PRF_PRDCODE AND PRD_SELCODE = PRF_PRDSELCODE AND PRF_PRDCTECODE = PRD_CTECODE
+         		 INNER JOIN BUY ON ORD_BUYCODE = BUY_CODE
+		WHERE ORD_PRDSELCODE = #{selCode} AND ORD_DATE >= (TO_CHAR(TRUNC(ADD_MONTHS(SYSDATE, -6)) , 'YYYYMMDD'))
+		ORDER BY ORDDATE DESC			 
+	</select>
+	<select id="getCteName" parameterType="com.twoEx.bean.ProductBean" resultType="com.twoEx.bean.ProductBean" >
+  		 SELECT CTE_CODE as prdCteCode,
+  	 	 CTE_NAME as cteName
+  	 	FROM SCT INNER JOIN CTE ON SCT_CTECODE = CTE_CODE
+        WHERE SCT_SELCODE = #{prdSelCode}
+  	</select>
+  	<select id="getSalesHistoryList" parameterType="com.twoEx.bean.SellerBean" resultType="com.twoEx.bean.SalesHistoryBean">	
+		SELECT TO_CHAR(ORD_DATE,'YYYY-MM-DD') AS ORDDATE,
+       	  	   ORD_PRDSELCODE AS ORDPRDSELCODE,
+           	   PRD_NAME AS PRDNAME,
+           	   TO_CHAR(PRD_PRICE,'FM999,999,999,999') AS PRDPRICE,
+           	   PRF_FILNAME AS PRFFILNAME,
+           	   PRF_LOCATION AS PRFLOCATION,
+           	   ORD_PRDCTECODE AS ORDPRDCTECODE,
+       		   ORD_PRDCODE AS ORDPRDCODE
+		FROM ORD INNER JOIN PRD ON ORD_PRDSELCODE = PRD_SELCODE AND ORD_PRDCODE = PRD_CODE AND ORD_PRDCTECODE = PRD_CTECODE
+         		 INNER JOIN PRF ON PRD_CODE = PRF_PRDCODE AND PRD_SELCODE = PRF_PRDSELCODE AND PRF_PRDCTECODE = PRD_CTECODE
+         		 INNER JOIN BUY ON ORD_BUYCODE = BUY_CODE
+		WHERE ORD_PRDSELCODE = #{selCode} AND ORD_DATE BETWEEN TO_DATE(#{ordFromDate},'YYYY-MM-DD') AND TO_DATE(#{ordToDate},'YYYY-MM-DD')
+		ORDER BY ORDDATE DESC	
+	</select>
+	<!-- 전체시장 통계정보 가져오기 -->
+	<!-- 생활서비스 -->
+	<select id="lifeSellSellStatistics" parameterType="com.twoEx.bean.ProductBean" resultType="int">
+		select count(*)
+		from ord 
+		where ord_prdctecode= '01'	
+	</select>
+	<!-- 비즈니스 -->
+	<select id="businessSellStatistics" parameterType="com.twoEx.bean.ProductBean" resultType="int">
+		select count(*)
+		from ord 
+		where ord_prdctecode= '02'	
+	</select>
+	<!-- 미디어 -->
+	<select id="mediaSellStatistics" parameterType="com.twoEx.bean.ProductBean" resultType="int">
+		select count(*)
+		from ord 
+		where ord_prdctecode= '03'	
+	</select>
+	<!-- IT -->
+	<select id="techSellStatistics" parameterType="com.twoEx.bean.ProductBean" resultType="int">
+		select count(*)
+		from ord 
+		where ord_prdctecode= '04'	
+	</select>
+	
+	<select id="designSellStatistics" parameterType="com.twoEx.bean.ProductBean" resultType="int">
+		select count(*)
+		from ord 
+		where ord_prdctecode= '05'	
+	</select>
+	
+	<select id="financeSellStatistics" parameterType="com.twoEx.bean.ProductBean" resultType="int">
+		select count(*)
+		from ord 
+		where ord_prdctecode= '06'	
+	</select>
+	
+	<select id="lawSellStatistics" parameterType="com.twoEx.bean.ProductBean" resultType="int">
+		select count(*)
+		from ord 
+		where ord_prdctecode= '07'	
+	</select>
+	
+	<select id="hobbySellStatistics" parameterType="com.twoEx.bean.ProductBean" resultType="int">
+		select count(*)
+		from ord 
+		where ord_prdctecode= '08'	
+	</select>
+	
+		<select id="age10MarketSell" parameterType="com.twoEx.bean.ProductBean" resultType="int">
+		select COUNT(*)
+            from AGE INNER JOIN ORD ON BUYCODE=ORD_BUYCODE
+            WHERE buyage='20대미만'
+	</select>
+	
+	<select id="age20MarketSell" parameterType="com.twoEx.bean.ProductBean" resultType="int">
+		select COUNT(*)
+            from AGE INNER JOIN ORD ON BUYCODE=ORD_BUYCODE
+            WHERE buyage='20대'
+	</select>
+	
+	
+	
+	<select id="age30MarketSell" parameterType="com.twoEx.bean.ProductBean" resultType="int">
+		select COUNT(*)
+            from AGE INNER JOIN ORD ON BUYCODE=ORD_BUYCODE
+            WHERE buyage='30대'
+	</select>
+
+<select id="age40MarketSell" parameterType="com.twoEx.bean.ProductBean" resultType="int">
+		select COUNT(*)
+            from AGE INNER JOIN ORD ON BUYCODE=ORD_BUYCODE
+            WHERE buyage='40대'
+	</select>
+	
+	
+	<select id="age50MarketSell" parameterType="com.twoEx.bean.ProductBean" resultType="int">
+		select COUNT(*)
+            from AGE INNER JOIN ORD ON BUYCODE=ORD_BUYCODE
+            WHERE  buyage='50대'
+	</select>
+	
+	<select id="age60MarketSell" parameterType="com.twoEx.bean.ProductBean" resultType="int">
+		select COUNT(*)
+            from AGE INNER JOIN ORD ON BUYCODE=ORD_BUYCODE
+            WHERE  buyage='60대이상'
+	</select>
+	
+
+	<select id="sellMaleStatistics" parameterType="com.twoEx.bean.ProductBean" resultType="int">
+		        select count(*) 
+        from ord inner join buy on ord_buycode=buy_code
+           WHERE buy_Gender='M'
+	</select>
+	
+	<select id="sellFemaleStatistics" parameterType="com.twoEx.bean.ProductBean" resultType="int">
+		        select count(*) 
+        from ord inner join buy on ord_buycode=buy_code
+           WHERE buy_Gender='F'
+	</select>
+		<!--  이번달 판매실적 -->
+	<select id="sellMonthStatistics" parameterType="com.twoEx.bean.ProductBean" resultType="int">
+		SELECT count(*)
+		FROM ORD INNER JOIN PRD ON ORD_PRDSELCODE = PRD_SELCODE AND ORD_PRDCODE = PRD_CODE AND ORD_PRDCTECODE = PRD_CTECODE
+         		 INNER JOIN PRF ON PRD_CODE = PRF_PRDCODE AND PRD_SELCODE = PRF_PRDSELCODE AND PRF_PRDCTECODE = PRD_CTECODE
+         		 INNER JOIN BUY ON ORD_BUYCODE = BUY_CODE
+		WHERE ORD_DATE BETWEEN  TRUNC(SYSDATE, 'MM') AND  to_char(sysdate, 'yyyy-mm-dd')
+	
+	</select>
+	<!-- 전달 판매실적 -->
+	<select id="sellMonth2Statistics" parameterType="com.twoEx.bean.ProductBean" resultType="int">
+		SELECT COUNT(*)
+        FROM ORD INNER JOIN PRD ON ORD_PRDSELCODE = PRD_SELCODE AND ORD_PRDCODE = PRD_CODE AND ORD_PRDCTECODE = PRD_CTECODE
+                  INNER JOIN PRF ON PRD_CODE = PRF_PRDCODE AND PRD_SELCODE = PRF_PRDSELCODE AND PRF_PRDCTECODE = PRD_CTECODE
+                  INNER JOIN BUY ON ORD_BUYCODE = BUY_CODE
+        WHERE ORD_DATE BETWEEN ADD_MONTHS(TRUNC(SYSDATE, 'MM'), -1) AND   LAST_DAY(ADD_MONTHS(TRUNC(SYSDATE,'MM'), -1))
+	</select>
+<insert id="insOrder" parameterType="com.twoEx.bean.OrderBean">
+        INSERT INTO ORD(ORD_BUYCODE,ORD_DATE,ORD_PRDCODE,ORD_PRDSELCODE,ORD_PRDCTECODE)
+        VALUES(#{ordBuyCode},to_char(sysDate,'yyyy-mm-dd'),#{ordPrdCode},#{ordPrdSelCode},#{ordPrdCteCode})
+    </insert>
+        <insert id="insStu" parameterType="com.twoEx.bean.StudentBean">
+        INSERT INTO STU(STU_CLASELCODE,STU_CLAPRDCODE,STU_CLACTECODE,STU_ORDBUYCODE,STU_ORDDATE,STU_ISBANNED)
+        VALUES(#{stuClaSelCode},#{stuClaPrdCode},#{stuClaCteCode},#{stuOrdBuyCode},
+        (SELECT to_char(MAX(ORD_DATE),'yyyy-mm-dd') FROM ORD WHERE ORD_BUYCODE = #{stuOrdBuyCode})
+        ,'A')
+    </insert>
+</mapper>

@@ -1,0 +1,247 @@
+@charset "UTF-8";
+
+
+
+/* [ 회원가입유형 선택 페이지 ]  ******************************/
+#join__title__section{
+  margin : 0.1rem auto;
+  padding-top: 60px;
+  /*
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  */
+}
+
+.joinPage__logo{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.joinPage__twoEx{
+
+  font-family: 'Russo One', sans-serif;
+  font-size: 40px;
+  font-weight: var(--weight-bold);
+  color: var(--color-veryPeri);
+
+  cursor: pointer;
+
+}  
+
+.joinPage__expertsExchange{
+  /*font-family: 'Russo One', sans-serif;*/
+  font-family:'Orbitron', sans-serif;
+  font-size: var(--font-medium);
+  font-weight: 800;
+  color: var(--color-black);
+}
+
+/* 두번째 섹션 ****************************************/
+
+#join__section{
+  padding-top: 45px;
+  margin-bottom: 15px;
+}
+
+.join__container{
+  margin : auto;
+  /*height : 450px;*/
+  width : 550px;
+  border: solid 1.5px var(--color-headerGrey);
+  border-radius: 10px;
+  padding : 40px 50px;
+  text-align: center;
+}
+
+.join__title{
+  padding: 10px;
+
+}
+.join_description{
+  padding: 5px;
+  padding-bottom: 30px;
+}
+
+
+
+.join__btn__kakao__a{
+  border:transparent;
+  width: 300px;
+
+}
+
+.join__btn__kakao{
+  width: 450px;
+  height : 70px;
+
+  background-color: rgb(253,229,0);
+  border-radius: 10px;
+
+  text-align: center;
+
+  margin-bottom: 40px;
+  cursor:pointer;
+}
+
+/*
+.kakao__image{
+  height: 70px;
+  width: 350px;
+  background: url('/res/imgs/kakao__join.png') center/cover no-repeat;
+  display:inline-block;
+}
+*/
+
+
+.join__btn__seller{
+  width: 450px;
+  height : 70px;
+
+  background-color: rgb(219, 233, 91);
+  border : transparent;
+  border-radius: 10px;
+
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: 700;
+  font-size : 22px;
+  text-align: center;
+
+  cursor:pointer;
+
+}
+
+/*
+#joinPage__body{
+  height : 100%;
+  width: 100%;
+
+}
+
+
+.joinPage__logo{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  font-size: var(--font-extraLarge);
+
+
+}
+
+.fa-solid.fa-arrow-right-arrow-left.joinPage{
+
+  font-size: var(--font-extraLarge);
+}
+
+.joinPage_twoEx{
+  font-family: 'Russo One', sans-serif;
+  font-size: var(--font-extraLarge);
+  font-weight: var(--weight-bold);
+  color: var(--color-veryPeri);
+
+}
+
+.joinPage__expertsExchange{
+  font-family: 'Russo One', sans-serif;
+  font-size: var(--font-medium);
+  font-weight: 400;
+  color: var(--color-black);
+}
+
+.join__container{
+  margin-top : 1rem;
+  margin-bottom : 1rem;
+  margin : auto;
+
+  padding : 4rem 1rem;
+  border: solid 0.2rem var(--color-whiteGrey);
+  border-radius: 0.5rem;
+  
+  width : 35%;
+  height : 55%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  color : var(--color-black);
+}
+
+
+.join_description{
+  margin : 1rem;
+
+}
+
+.joinBtn.large{
+  margin:2rem;
+  padding:0.9rem;
+  
+  border: transparent;
+  border-radius: 0.5rem;
+  
+  height : 4.5rem;
+  width : 77%;
+  
+  background-color: var(--color-lime);
+
+
+  font-size: 1.5rem;
+  font-weight: var(--weight-bold);
+  color: var(--color-dark-grey);
+
+}
+
+.joinBtn.large.buyer{
+  background: url('imgs/kakao_join_large_wide.png') center/cover no-repeat;
+
+
+}
+
+
+
+.joinPage__twoEx{
+  font-family: 'Russo One', sans-serif;
+  font-size: 100px;
+  font-weight: var(--weight-bold);
+  color: var(--color-veryPeri);
+
+}
+
+.joinPage___expertsExchange{
+  font-family: 'Russo One', sans-serif;
+  font-size: 51px;
+  font-weight: 400;
+  color: var(--color-black);
+}
+
+.join___container{
+  margin-top : 1rem;
+  margin-bottom : 1rem;
+  margin : auto;
+
+  padding : 4rem 1rem;
+  border: solid 0.2rem var(--color-whiteGrey);
+  border-radius: 0.5rem;
+  
+  width : 55%;
+  height : 55%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  color : var(--color-black);
+}
+
+.fa-solid.fa-arrow-right-arrow-left.JoinPage{
+
+  font-size: 50px;
+}
+
+*/

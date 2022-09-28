@@ -1,0 +1,87 @@
+@charset "UTF-8";
+
+
+.colorSelect{
+color: rgb(210,220,255);
+color: rgb(244,246,149);
+color: rgb(255,199,168);
+color: rgb(217,209,255);
+color: rgb(198,225,254);
+color: rgb(255,176,216);
+}
+
+
+/** product **/
+.product__item{
+  margin : 15px;
+  
+  height : 450px;
+  width : 280px;
+  border : solid 3px #898a96;
+  border-radius: var(--border-radius3);
+  padding : 0.7rem;
+
+  /*background-image: linear-gradient(to top, #56b9ff 0%, #f7e0f1 100%);*/
+
+  align-items: flex-start;
+
+  /*ackground-color: #b3dbf5;*/
+  color: var(--color-black);
+  text-align: center;
+  
+  cursor:pointer;
+}
+
+
+.product__image__div{
+position : relative;
+	
+  width : 100%;
+  height : 200px;
+  background-color: var(--color-headerGrey);
+  
+  margin-bottom : 20px;
+}
+
+.product__image{
+
+	height: 100%;
+	width: 100%;
+	
+}
+
+.product__seller__div,
+.product__title__div,
+.product__price__div,
+.product__etc__div,
+.product__btn__div{
+  margin-bottom: 10px;;
+
+}
+
+.product__item.item1{
+
+	margin-top : 1rem;
+   	float :left;
+}
+
+.items.title{
+float :left;
+  border : 1px;
+  overflow: scroll;
+  height: 800px;
+  width: 100%;
+}
+
+.monthsDate{
+	float :left;
+	
+}
+
+.monthsDateZone{
+	float :left;
+	
+}
+.joinName{
+	float :left;
+}

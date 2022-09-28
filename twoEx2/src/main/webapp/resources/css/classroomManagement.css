@@ -1,0 +1,894 @@
+#claTitle {
+	border:  var(--color-white);
+	border-radius: var(--border-radius1);
+	padding: 8px 14px;
+	padding-top: 16px;
+	color: white;
+	background-image: linear-gradient(to top, #a18cd1 0%, #6667AC 100%);
+	height: 80%;
+	margin-top: 10px;
+	width: 77%;
+
+	/*
+    
+    background-color:var(--color-veryPeri);
+	*/
+}
+/*배너존 점선 지우기*/
+
+/*메뉴존*/
+.common__menu__Zone {
+	margin-top: 55px;
+	width: 16%;
+	border: none
+}
+/* 배너존 */
+.classroom__banner__zone {
+	height: 30%;
+	border: none;
+	margin-bottom: 1px;
+}
+
+.common__content__zone {
+	width: 100%;
+	height: 150%;
+	border: none;
+}
+
+#claTitle1 {
+	margin-top: 60px;
+	width: 67%;
+	height: 60%;
+	float: left;
+}
+
+#claTitle2 {
+	margin-top: 60px;
+	width: 33%;
+	float: left;
+	text-align: right;
+	font-size: 14px;
+}
+
+.claInfoBtn2 {
+	color: white;
+	width: 100%;
+	text-align: left;
+}
+
+.cla_name {
+	font-weight: bold;
+	font-size: 40px;
+	width: 100%;
+	float: left;
+	text-align: left;
+}
+
+.cla_info {
+	width: 300px;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.cla_date {
+	margin-top: 50px;
+	font-weight: bold;
+	width: 49.5%;
+	float: left;
+	font-size: 14px;
+	width: 100%;
+}
+
+.cla_totday {
+	width: 50%;
+	font-weight: bold;
+	float: left;
+	font-size: 14px;
+}
+
+.cla_curday {
+	width: 75%;
+	font-weight: bold;
+	float: left;
+	font-size: 14px;
+	text-align: right;
+}
+
+.cla_curpercentage {
+	width: 25%;
+	font-weight: bold;
+	float: right;
+}
+
+.claInfoBtn {
+	margin-top: 119px;
+	float: right;
+	position: relative;
+	border: none;
+	min-width: 55px;
+	min-height: 30px;
+	background-image: linear-gradient(to top, #a18cd1 0%, #6667AC 100%);
+	border-radius: 1000px;
+	color: white;
+	cursor: pointer;
+	font-weight: 700;
+	transition: 0.3s;
+}
+
+.claInfoBtn:hover {
+	transform: scale(1.2);
+}
+
+.claInfoBtn:hover:after {
+	content: "";
+	width: 30px;
+	height: 30px;
+	border-radius: 100%;
+	position: absolute;
+	z-index: -1;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	animation: ring 1.5s infinite;
+}
+
+.claInfoBtn2 {
+	margin-top: 5px;
+	float: left;
+	position: relative;
+	border: none;
+	text-align: center;
+	width: 17%;
+	height: 36%;
+	background-image: linear-gradient(to top, #a18cd1 0%, #6667AC 100%);
+	border-radius: 1000px;
+	color: white;
+	cursor: pointer;
+	font-weight: 700;
+	transition: 0.3s;
+}
+
+.claInfoBtn2:hover {
+	transform: scale(1.2);
+}
+
+.claInfoBtn2:hover:after {
+	content: "";
+	width: 30px;
+	height: 30px;
+	border-radius: 100%;
+	position: absolute;
+	z-index: -1;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	animation: ring 1.5s infinite;
+}
+
+/*콘텐츠 타이틀*/
+#listTitle {
+	width: 100%;
+	height: 10%;
+	float: left;
+	font-size: 30xp;
+	text-align: center;
+}
+
+/*커리컬럼 콘텐츠*/
+div[id^=curList] {
+	color: #fff;
+	height: 100%;
+	width: 30%;
+	border: solid var(- -border-thin) var(- -color-headerGrey);
+	border-radius: var(- -border-radius1);
+	background-image: linear-gradient(to top, #a18cd1 0%, #6667AC 100%);
+	font-size: 20px;
+}
+
+div[id^=curName] {
+	font-size: 30px;
+	height: 20%;
+}
+
+div[id^=curInfo] {
+	width: 100%;
+	height: 40%;
+}
+
+div[id^=curDate] {
+	width: 100%;
+	height: 20%;
+}
+
+div[id^=curTime] {
+	width: 100%;
+	height: 10%;
+}
+
+/*공지 콘텐츠*/
+div[class^=ntcList] {
+	width: 30%;
+	height: 100%;
+	float: left;
+	background-color: var(- -color-veryPeri);
+	padding: 15px 0;
+}
+
+div[class^=ntcListNumber] {
+	width: 10%;
+}
+
+.common__menu__item.parentItem2 {
+	color: rgb(255, 111, 97);
+	font-size: var(- -font-medium);
+	cursor: pointer;
+}
+
+div[id^=claNtcName] {
+	width: 50%;
+	float: left;
+	font-weight: bold;
+	text-align: center;
+}
+
+div[id^=claNtcInfo] {
+	float: left;
+	width: 100%;
+	font-weight: bold;
+	text-align: left;
+	background-color: #fff;
+	border-color: #fff;
+	color: #000;
+}
+
+div[id^=claNtcDate] {
+	float: left;
+	width: 30%;
+	font-weight: bold;
+	text-align: center;
+}
+
+div[class^=ntcImgDiv] {
+	float: left;
+	width: 100%;
+	background-image: linear-gradient(to top, #a18cd1 0%, #6667AC 100%);
+	border-top-left-radius: var(- -border-radius1);
+	border-top-right-radius: var(- -border-radius1);
+}
+
+.ntcImg {
+	float: left;
+}
+
+/*가장 위 데이터*/
+div[id^=claNtcList] {
+	margin-bottom: 20px;
+	width: 100%;
+	height: 25%;
+	color: #fff;
+	font-size: 20px;
+	border: solid var(- -border-thin) var(- -color-headerGrey);
+	border-radius: var(- -border-radius1);
+}
+
+div[id^=claNtcNumber] {
+	width: 10%;
+	float: left;
+	text-align: center;
+}
+
+#common__wrapper {
+	height: 60%;
+	width: 77%;
+	margin-top: 1px;
+	padding: 1px;
+}
+
+html {
+	height: 100%;
+}
+
+main {
+	height: 100%;
+}
+/*common__wrapper*/
+
+/* 과제 목록 CSS*/
+#assListDiv {
+	height: 50%;
+	color: #fff;
+	margin-bottom: 10px;
+	height: 33%;
+	width: 100%;
+	border-radius: var(- -border-radius1);
+	background-image: linear-gradient(to top, #a18cd1 0%, #6667AC 100%);
+	font-size: 20px;
+	border: solid var(- -border-thin) var(- -color-headerGrey);
+	border-radius: var(- -border-radius1);
+}
+
+#exfAssListDiv {
+	height: 50%;
+	color: #fff;
+	margin-bottom: 10px;
+	height: 33%;
+	width: 100%;
+	border-radius: var(- -border-radius1);
+	background-image: linear-gradient(to top, #a18cd1 0%, #6667AC 100%);
+	font-size: 20px;
+	border: solid var(- -border-thin) var(- -color-headerGrey);
+	border-radius: var(- -border-radius1);
+}
+
+#incAssbigList {
+	color: #fff;
+	margin-bottom: 10px;
+	height: 33%;
+	width: 100%;
+	border-radius: var(- -border-radius1);
+	background-image: linear-gradient(to top, #a18cd1 0%, #6667AC 100%);
+	font-size: 20px;
+	border: solid var(- -border-thin) var(- -color-headerGrey);
+	border-radius: var(- -border-radius1);
+}
+
+div[id^=comAssName] {
+	color: #fff;
+	margin-bottom: 10px;
+	height: 15%;
+	width: 100%;
+	border-radius: var(- -border-radius1);
+	background-image: linear-gradient(to top, #a18cd1 0%, #6667AC 100%);
+	font-size: 20px;
+	border: solid var(- -border-thin) var(- -color-headerGrey);
+	border-radius: var(- -border-radius1);
+}
+
+/* 과제 상세 CSS*/
+.littleTitle {
+	font-size: 40px;
+	width: 100%;
+	height: 9.4%;
+	color: var(- -color-veryPeri);
+}
+
+
+textarea[name=subInfo] {
+	color: #fff;
+	margin-bottom: 10px;
+	height: 15%;
+	width: 100%;
+	background-image: linear-gradient(to top, #a18cd1 0%, #6667AC 100%);
+	border: solid var(- -border-thin) var(- -color-headerGrey);
+	border-radius: var(- -border-radius1);
+	font-size: 20px;
+}
+
+input[name^=ass] {
+	
+	color: #fff;
+    margin-bottom: 10px;
+    height: 15%;
+    width: 50%;
+    border-radius: var(--border-radius1);
+    background-image: linear-gradient(to top, #a18cd1 0%, #92A8D1 100%);
+    font-size: 20px;
+}
+
+.btn__micro {
+	width :20%;
+    margin-left: 170px;
+}
+
+
+button[class=addUploadFileBtn] {
+	color: #fff;
+	margin-bottom: 10px;
+	height: 15%;
+	width: 100%;
+	border-radius: var(- -border-radius1);
+	background-image: linear-gradient(to top, #a18cd1 0%, #6667AC 100%);
+	font-size: 20px;
+}
+
+button[id=setUpdBtn] {
+	color: #fff;
+	margin-bottom: 10px;
+	height: 15%;
+	width: 100%;
+	border-radius: var(- -border-radius1);
+	background-image: linear-gradient(to top, #a18cd1 0%, #6667AC 100%);
+	font-size: 20px;
+}
+
+input[name=uploadFile] {
+	color: #fff;
+	margin-bottom: 10px;
+	height: 15%;
+	width: 100%;
+	border-radius: var(- -border-radius1);
+	background-image: linear-gradient(to top, #a18cd1 0%, #6667AC 100%);
+	font-size: 20px;
+}
+
+button[class=deleteFileBtn] {
+	color: #fff;
+	margin-bottom: 10px;
+	height: 15%;
+	width: 100%;
+	border-radius: var(- -border-radius1);
+	background-image: linear-gradient(to top, #a18cd1 0%, #6667AC 100%);
+	font-size: 20px;
+}
+
+button[class=submitAssignment] {
+	color: #fff;
+	margin-bottom: 10px;
+	height: 15%;
+	width: 50%;
+	border-radius: var(- -border-radius1);
+	background-image: linear-gradient(to top, #a18cd1 0%, #6667AC 100%);
+	font-size: 20px;
+}
+
+button[class=returnMoveAssignment] {
+	color: #fff;
+	margin-bottom: 10px;
+	margin-left: 7px;
+	height: 15%;
+	width: 49%;
+	border-radius: var(- -border-radius1);
+	background-image: linear-gradient(to top, #a18cd1 0%, #6667AC 100%);
+	font-size: 20px;
+}
+
+button[class=unsubmitAssignmentBtn] {
+	color: #fff;
+	margin-bottom: 10px;
+	height: 15%;
+	width: 50%;
+	border-radius: var(- -border-radius1);
+	background-image: linear-gradient(to top, #a18cd1 0%, #6667AC 100%);
+	font-size: 20px;
+}
+
+input[name^=cur] {
+	color: #fff;
+	margin-bottom: 10px;
+	height: 15%;
+	width: 50%;
+	border-radius: var(- -border-radius1);
+	background-image: linear-gradient(to top, #a18cd1 0%, #92A8D1 100%);
+	font-size: 20px;
+}
+
+button[id=insBtn] {
+	color: #fff;
+	margin-bottom: 10px;
+	height: 15%;
+	width: 50%;
+	border-radius: var(- -border-radius1);
+	background-image: linear-gradient(to top, #a18cd1 0%, #6667AC 100%);
+	font-size: 20px;
+}
+
+div[id^=incAssName] {
+	height: 15%;
+	width: 100%;
+	margin-top: 10px;
+	border: solid var(- -border-thin) var(- -color-headerGrey);
+	border-radius: var(- -border-radius1);
+}
+
+div[id^=exfAssName] {
+	height: 15%;
+	width: 100%;
+	margin-top: 10px;
+	border: solid var(- -border-thin) var(- -color-headerGrey);
+	border-radius: var(- -border-radius1);
+}
+
+.fc-event-title-container {
+	background-image: linear-gradient(to top, #a18cd1 0%, #6667AC 100%);
+}
+
+.fc .fc-daygrid-day.fc-day-today {
+	background-image: linear-gradient(to top, #FBC2EB 0%, #92A8D1 100%);
+}
+
+.fc .fc-button-primary:not(:disabled):active, .fc .fc-button-primary:not(:disabled).fc-button-active
+	{
+	background-image: linear-gradient(to top, #FBC2EB 0%, #92A8D1 100%);
+}
+
+.fc .fc-button-primary {
+	background-image: linear-gradient(to top, #a18cd1 0%, #6667AC 100%);
+}
+
+/* 과제 상세 CSS*/
+
+/*캘린더*/
+#calendar {
+	color: #000;
+}
+
+a {
+	color: #000;
+}
+
+.fc-scrollgrid.fc-scrollgrid-liquid {
+	color: #000;
+}
+
+.fc-col-header-cell-cushion {
+	color: #000;
+}
+
+/*매니지먼트 커리큘럼*/
+#contents1 {
+	color: #fff;
+	margin-bottom: 10px;
+	height: 150%;
+	width: 40%;
+	border-radius: var(- -border-radius1);
+	background-image: linear-gradient(to top, #a18cd1 0%, #6667AC 100%);
+	font-size: 20px;
+	margin-right: 10px;
+}
+
+#contents2 {
+	color: #fff;
+	margin-bottom: 10px;
+	height: 80%;
+	width: 35%;
+	border-radius: var(- -border-radius1);
+	background-image: linear-gradient(to top, #a18cd1 0%, #6667AC 100%);
+	font-size: 20px;
+}
+
+/*과제 관리 css*/
+
+.assForm{
+	margin-top : 17px;
+}
+
+.assLittleForm{
+	color: #fff;
+	margin-top : 10px;
+	margin-bottom: 10px;
+	margin-left: 15px;
+	height: 80%;
+	float: left;
+	width: 47%;
+	border-radius: var(--border-radius1);
+	border: solid var(--border-thin) var(--color-headerGrey);
+	background-image: linear-gradient(to top, #a18cd1 0%, #6667AC 100%);
+	font-size: 20px;
+		
+}
+
+textarea[name^=assInfo]{
+	margin-left : 10px ;
+	color: #fff;
+    margin-bottom: 10px;
+    font-size: 20px;
+    background-image: linear-gradient(to top, #a18cd1 0%, #92A8D1 100%);
+    border-radius: var(--border-radius1);
+    border: solid var(--border-thin) var(--color-headerGrey);
+}
+
+input[name^=assName]{
+	margin-left : 10px ;
+	color: #fff;
+	font-size: 20px;
+    background-image: linear-gradient(to top, #a18cd1 0%, #92A8D1 100%);
+    border-radius: var(--border-radius1);
+    border: solid var(--border-thin) var(--color-headerGrey);
+}
+
+
+
+
+.productList__zone{
+	float : left ;
+	height : 125%;
+	width: 51%;
+	display:block ;
+	margin:0px;
+}
+.product__item{
+	width : 387px;
+	min-height: 0px;
+}
+
+div[id^=assignment]{
+	border: solid var(--border-thin) var(--color-headerGrey);
+    border-radius: var(--border-radius1);
+	background-image: linear-gradient(to top, #a18cd1 0%, #6667AC 100%);
+	color : #fff;
+	
+	height: 250px;
+	min-height: 0px;
+}
+
+
+
+
+
+
+
+/*학생 정보*/
+div[id^=student]{
+	float : left ;
+	width : 84%;
+	height : 100%;
+	border: solid var(--border-thin) var(--color-headerGrey);
+    border-radius: var(--border-radius1);
+	background-image: linear-gradient(to top, #a18cd1 0%, #6667AC 100%);
+	color : #fff;
+}
+div[class^=img]{
+	float : left ; 
+	width : 10%;
+}
+div[id^=stuBuyNickname]{
+	margin-top : 30px;
+	text-align : center ; 
+	float : left ; 
+	width :  15%;
+}
+div[id^=stuBuyGender]{
+	
+	margin-top : 30px;text-align : center ; 
+	float : left ; 
+	width :  15%;
+}
+div[id^=stuBuyAge]{
+	margin-top : 30px;
+	text-align : center ; 
+	float : left ; 
+	width :  15%;
+}
+div[id^=stuBuyRegion]{
+	margin-top : 30px;
+	text-align : center ; 
+	float : left ; 
+	width :  15%;
+}
+div[id^=stuBuyEmail]{
+	margin-top : 30px;
+	text-align : center ; 
+	float : left ; 
+	width :  15%;
+}
+
+
+
+
+
+
+
+.common__content__zone{
+	float: left ;
+	width:78%;
+	height : 150%;
+	border:none;
+	margin-left : 0px; 
+	background-color : #fff;
+	
+}
+
+
+div[id^=notice]{
+	background-image: linear-gradient(to top, #a18cd1 0%, #6667AC 100%);
+	width : 46%;
+	color : #fff;	
+}
+
+.ntcAddBtn{
+	float : left;
+	margin-left : 50px;
+	height: 40px;
+    border: solid 1px transparent;
+    border-radius: var(--border-radius3);
+    background-color: var(--color-serenity);
+    color: white;
+    cursor: pointer;
+}
+
+
+
+textarea[name^=ntcInfo]{
+	
+	color: #fff;
+    margin-bottom: 10px;
+    height: 15%;
+    width: 100%;
+    font-size: 20px;
+    background-image: linear-gradient(to top, #a18cd1 0%, #92A8D1 100%);
+    border-radius: var(--border-radius1);
+    border: solid var(--border-thin) var(--color-headerGrey);
+}
+
+input[name=ntcName]{
+	color : #fff;
+	background-image: linear-gradient(to top, #a18cd1 0%, #92A8D1 100%);
+	text-align : center;
+}
+
+
+
+input[name=ntcDate]{
+	margin-left : 18px;
+	color : #fff;
+	background-image: linear-gradient(to top, #a18cd1 0%, #92A8D1 100%);
+	text-align : center;
+}
+
+
+
+
+
+div[class=assBtn]{
+	text-align : center ;
+	margin : 10px;
+	float:left ;
+	width: 100px;
+	height: 27px;
+    border: solid 1px transparent;
+    border-radius: var(--border-radius3);
+    background-color: var(--color-serenity);
+    color: white;
+    cursor: pointer;
+}
+button[class=okBtn]{
+	
+	margin : 10px;
+	margin-left : 310px;
+	float:left ;
+	width: 100px;
+	height: 40px;
+    border: solid 1px transparent;
+    border-radius: var(--border-radius3);
+    background-color: var(--color-serenity);
+    color: white;
+    cursor: pointer;
+}
+button[class=yesBtn]{
+	
+	margin : 10px;
+	margin-left : 254px;
+	float:left ;
+	width: 100px;
+	height: 40px;
+    border: solid 1px transparent;
+    border-radius: var(--border-radius3);
+    background-color: var(--color-serenity);
+    color: white;
+    cursor: pointer;
+}
+button[class=noBtn]{
+	
+	margin : 10px;
+	float:left ;
+	width: 100px;
+	height: 40px;
+    border: solid 1px transparent;
+    border-radius: var(--border-radius3);
+    background-color: var(--color-serenity);
+    color: white;
+    cursor: pointer;
+}
+
+
+.modal__title{
+	text-align : center ;
+	color : #fff;
+	display : block;
+	
+}
+
+.modal__head{
+	height: 35%;
+	display : block;
+}
+.modal__body{
+	background-color : #fff;
+	text-align : center ;
+}
+
+.common__modal{
+	height: 5rem;
+	margin-top : 100px;
+	margin-left : 100px;
+}
+
+.buttonDiv{
+	margin-top :10px;
+}
+
+input[name^=ntcDelete]{
+	float :  left ;
+	margin-left: 10px;
+}
+input[name^=ntcUpdate]{
+	margin-left: 120px;
+	float :  left ;
+	
+}
+
+
+.assDetailList{
+	color: #fff;
+    height: 50%;
+    width: 90%;
+    border: solid var(--border-thin) var(--color-headerGrey);
+    border-radius: var(--border-radius1);
+    background-image: linear-gradient(to top, #a18cd1 0%, #6667AC 100%);
+    font-size: 20px;
+    margin: 10px;
+}
+
+#assProList1{
+	height : 50%;	
+}
+
+#asmModal{
+	height : 20%;
+}
+#maxGrade{
+	float : left;
+	width:25%;
+}
+
+
+.closeBtn{
+	margin-left: 10px;
+	height: 40px;
+    border: solid 1px transparent;
+    border-radius: var(--border-radius3);
+    background-color: var(--color-serenity);
+    color: white;
+    cursor: pointer;
+}
+.gradeBtn{
+	margin-left: 10px;
+	height: 40px;
+    border: solid 1px transparent;
+    border-radius: var(--border-radius3);
+    background-color: var(--color-serenity);
+    color: white;
+    cursor: pointer;
+}
+.buttonDiv{
+	width: 100%;
+	display: inline-block;
+	text-align : center;
+}
+
+.gradeInput{
+	margin-top :13px;
+	margin-left : 200px;
+	float : left ;
+}
+
+#subBuyNickname{
+	float : left;
+	width : 70%;
+}
+#subDate{
+	float : left;
+	width : 70%;
+}
+#subGrade{
+	float : left;
+	width : 70%;
+}
+
+.profilePhoto{
+	float : left;
+}
+
+.productList__zone{
+	height : auto; overflow :hidden;		
+}

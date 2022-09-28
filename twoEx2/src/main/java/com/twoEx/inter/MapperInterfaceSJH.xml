@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.twoEx.inter.MapperInterfaceSJH">
+
+	<!-- 로그인한 판매자의 상품 리스트 -->
+	<select id="getProduct" parameterType="com.twoEx.bean.ProductBean" resultType="com.twoEx.bean.ProductBean">
+	 select 
+		PRD_CODE AS prdCode,
+		PRD_SELCODE AS prdSelCode,
+        PRD_CTECODE AS prdCteCode,
+        PRD_NAME AS prdName,
+        PRD_INFO AS prdInfo,
+        PRD_TYPE AS prdType,
+        PRD_PRICE AS prdPrice,
+        TO_CHAR(PRD_STARTDATE,'YYYY-MM-DD') AS prdStartDate,
+        TO_CHAR(PRD_ENDDATE,'YYYY-MM-DD') AS prdEndDate,
+        CTE_NAME AS cteName
+        from PRD INNER JOIN CTE ON PRD_CTECODE = CTE_CODE
+        WHERE PRD_SELCODE= #{prdSelCode} 
+	</select>
+
+		<!-- 구매할 상품의  정보 -->
+	<select id="getOrderProduct" parameterType="com.twoEx.bean.ProductBean" resultType="com.twoEx.bean.ProductBean">
+	 select 
+		PRD_CODE AS prdCode,
+		PRD_SELCODE AS prdSelCode,
+        PRD_CTECODE AS prdCteCode,
+        PRD_NAME AS prdName,
+        PRD_INFO AS prdInfo,
+        PRD_TYPE AS prdType,
+        PRD_STARTDATE AS prdStartDate,
+        PRD_ENDDATE AS prdEndDate,
+        PRD_PRICE AS prdPrice,
+        CTE_NAME AS cteName,
+        SEL_SHOPNAME AS selShopName,
+        SEL_NICKNAME AS selNickname
+        from PRD INNER JOIN CTE ON PRD_CTECODE = CTE_CODE
+        		 INNER JOIN SEL ON PRD_SELCODE = SEL_CODE
+        WHERE PRD_SELCODE= #{prdSelCode}  AND PRD_CODE = #{prdCode} AND PRD_CTECODE=#{prdCteCode}
+	</select>
+
+
+
+
+<!-- 상품이미지 -->
+    <select id="getPrdImg" parameterType="com.twoEx.bean.ProductBean" resultType="string">
+    SELECT PRF_LOCATION FROM PRF WHERE PRF_PRDSELCODE = #{prdSelCode} and PRF_PRDCODE=#{prdCode} and PRF_PRDCTECODE=#{prdCteCode}
+    </select>
+
+    <select id="getOrderPrdImg" parameterType="com.twoEx.bean.OrderBean" resultType="string">
+    SELECT PRF_LOCATION FROM PRF WHERE PRF_PRDSELCODE = #{ordPrdSelCode} and PRF_PRDCODE=#{ordPrdCode} and PRF_PRDCTECODE=#{ordPrdCteCode}
+    </select>
+	
+	<!-- 상품 수정/삭제/등록 관련 -->
+	<!-- 상품등록 -->
+	<insert id="regProduct" parameterType="com.twoEx.bean.ProductBean">
+		INSERT INTO PRD(PRD_CODE,PRD_SELCODE,PRD_CTECODE,PRD_NAME,PRD_INFO,PRD_TYPE,PRD_STARTDATE,PRD_ENDDATE,PRD_PRICE)
+		VALUES(#{prdCode},#{prdSelCode},#{prdCteCode},#{prdName},#{prdInfo},#{prdType},#{prdStartDate},#{prdEndDate},#{prdPrice})
+	</insert>
+	<!-- 상품등록 시, 클래스룸 사용하는 상품이면 클래스룸 자동 생성 -->
+	<insert id="insClassRoom" parameterType="com.twoEx.bean.ProductBean">
+		INSERT INTO CLA(CLA_PRDCODE,CLA_SELCODE,CLA_CTECODE,CLA_INFO)
+		VALUES(#{prdCode},#{prdSelCode},#{prdCteCode},#{prdInfo})
+	</insert>
+	
+	<!-- 상품등록 , 수정시 카테고리 선택 -->
+	<select id="getCte" parameterType="com.twoEx.bean.ProductBean" resultType="com.twoEx.bean.ProductBean" >
+  		 SELECT 		CTE_CODE as prdCteCode,
+  	 	 			CTE_NAME as cteName
+  	 	FROM SCT INNER JOIN CTE ON SCT_CTECODE = CTE_CODE
+        WHERE SCT_SELCODE = #{prdSelCode} 
+        
+  	 </select>
+	
+	
+	<!-- 상품삭제 -->
+	<delete id="delProduct" parameterType="com.twoEx.bean.ProductBean">
+		DELETE FROM PRD WHERE PRD_CODE = #{prdCode} AND PRD_SELCODE = #{prdSelCode} AND PRD_CTECODE = #{prdCteCode}
+	</delete>
+	
+	
+	<!-- 상품수정 -->
+	<update id="updProduct" parameterType="com.twoEx.bean.ProductBean">
+	
+		UPDATE PRD SET	
+						PRD_NAME= #{prdName},
+					    PRD_INFO= #{prdInfo},
+					    PRD_STARTDATE = #{prdStartDate},
+					    PRD_ENDDATE = #{prdEndDate},
+					    PRD_PRICE = #{prdPrice}
+					    WHERE PRD_CODE =#{prdCode} AND PRD_SELCODE = #{prdSelCode} AND PRD_CTECODE=#{prdCteCode}
+	</update>
+	
+	
+	 <!--  -->
+	
+	
+	<!--판매자 전분분야 등록  -->
+	<insert id="insCte" parameterType="com.twoEx.bean.ProductBean">	 
+		INSERT INTO SCT(SCT_SELCODE,SCT_CTECODE) VALUES(#{prdSelCode},#{prdCteCode})
+				  
+	</insert>
+	
+	
+	
+	
+  	 <!-- 회원가입시 카테고리 선택 -->
+	<select id="getJoinCte" resultType="com.twoEx.bean.ProductBean" >
+  	 	   	SELECT cte_code as prdCteCode,
+  			cte_name as cteName
+			FROM cte 
+			where cte_code NOT IN(SELECT sct_ctecode FROM sct WHERE sct_selCode=#{prdSelCode})
+  	 </select>
+  	 
+	
+	
+	<!-- 클래스 룸 삭제 -->
+	<delete id="delClassroom" parameterType="com.twoEx.bean.ProductBean">
+		DELETE FROM CLA WHERE CLA_PRDCODE = #{prdCode} 
+	</delete>
+	
+	
+	
+	<!-- 하나의 상품정보 표시 -->
+	<select id="getProductInfo" parameterType="com.twoEx.bean.ProductBean" resultType="com.twoEx.bean.ProductBean">
+		SELECT 
+        PRD_CODE AS prdCode,
+		PRD_SELCODE AS prdSelCode,
+        PRD_CTECODE AS prdCteCode,
+        PRD_NAME AS prdName,
+        PRD_INFO AS prdInfo,
+        PRD_TYPE AS prdType,
+        PRD_STARTDATE AS prdStartDate,
+        PRD_ENDDATE AS prdEndDate,
+        PRD_PRICE AS prdPrice
+        FROM PRD
+        WHERE PRD_CODE = #{prdCode} AND PRD_SELCODE =#{prdSelCode} AND PRD_CTECODE=#{prdCteCode}
+	</select>
+	
+	<!--  통계 관련 -->
+	<!-- 생활서비스 -->
+	<select id="lifeSell" parameterType="com.twoEx.bean.ProductBean" resultType="int">
+		select count(*)
+		from ord 
+		where ord_prdselcode=  #{prdSelCode} and ord_prdctecode= '01'	
+	</select>
+	<!-- 비즈니스 -->
+	<select id="businessSell" parameterType="com.twoEx.bean.ProductBean" resultType="int">
+		select count(*)
+		from ord 
+		where ord_prdselcode= #{prdSelCode} and ord_prdctecode= '02'	
+	</select>
+	<!-- 미디어 -->
+	<select id="mediaSell" parameterType="com.twoEx.bean.ProductBean" resultType="int">
+		select count(*)
+		from ord 
+		where ord_prdselcode=  #{prdSelCode} and ord_prdctecode= '03'	
+	</select>
+	<!-- IT -->
+	<select id="techSell" parameterType="com.twoEx.bean.ProductBean" resultType="int">
+		select count(*)
+		from ord 
+		where ord_prdselcode=  #{prdSelCode} and ord_prdctecode= '04'	
+	</select>
+	<!-- 디자인 -->
+	<select id="designSell" parameterType="com.twoEx.bean.ProductBean" resultType="int">
+		select count(*)
+		from ord 
+		where ord_prdselcode=  #{prdSelCode} and ord_prdctecode= '05'	
+	</select>
+	<!-- 재테크 -->
+	<select id="financeSell" parameterType="com.twoEx.bean.ProductBean" resultType="int">
+		select count(*)
+		from ord 
+		where ord_prdselcode=  #{prdSelCode} and ord_prdctecode= '06'	
+	</select>
+	<!-- 법무.노무 -->
+	<select id="lawSell" parameterType="com.twoEx.bean.ProductBean" resultType="int">
+		select count(*)
+		from ord 
+		where ord_prdselcode=  #{prdSelCode} and ord_prdctecode= '07'	
+	</select>
+	<!-- 취미 -->
+	<select id="hobbySell" parameterType="com.twoEx.bean.ProductBean" resultType="int">
+		select count(*)
+		from ord 
+		where ord_prdselcode=  #{prdSelCode} and ord_prdctecode= '08'	
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<select id="age10" parameterType="com.twoEx.bean.ProductBean" resultType="int">
+		select COUNT(*)
+            from AGE INNER JOIN ORD ON BUYCODE=ORD_BUYCODE
+            WHERE ORD_PRDSELCODE =  #{prdSelCode} and buyage='20대미만'
+	</select>
+	
+	<select id="age20" parameterType="com.twoEx.bean.ProductBean" resultType="int">
+		select COUNT(*)
+            from AGE INNER JOIN ORD ON BUYCODE=ORD_BUYCODE
+            WHERE ORD_PRDSELCODE =  #{prdSelCode} and buyage='20대'
+	</select>
+	
+	
+	
+	<select id="age30" parameterType="com.twoEx.bean.ProductBean" resultType="int">
+		select COUNT(*)
+            from AGE INNER JOIN ORD ON BUYCODE=ORD_BUYCODE
+            WHERE ORD_PRDSELCODE =  #{prdSelCode} and buyage='30대'
+	</select>
+
+<select id="age40" parameterType="com.twoEx.bean.ProductBean" resultType="int">
+		select COUNT(*)
+            from AGE INNER JOIN ORD ON BUYCODE=ORD_BUYCODE
+            WHERE ORD_PRDSELCODE =  #{prdSelCode} and buyage='40대'
+	</select>
+	
+	
+	<select id="age50" parameterType="com.twoEx.bean.ProductBean" resultType="int">
+		select COUNT(*)
+            from AGE INNER JOIN ORD ON BUYCODE=ORD_BUYCODE
+            WHERE ORD_PRDSELCODE =  #{prdSelCode} and buyage='50대'
+	</select>
+	
+	<select id="age60" parameterType="com.twoEx.bean.ProductBean" resultType="int">
+		select COUNT(*)
+            from AGE INNER JOIN ORD ON BUYCODE=ORD_BUYCODE
+            WHERE ORD_PRDSELCODE =  #{prdSelCode} and buyage='60대이상'
+	</select>
+
+
+	<!-- 남자판매 -->
+	<select id="sellMale" parameterType="com.twoEx.bean.ProductBean" resultType="int">
+		        select count(*) 
+        from ord inner join buy on ord_buycode=buy_code
+           WHERE ORD_PRDSELCODE =  #{prdSelCode} and buy_Gender='M'
+	</select>
+	<!-- 여자판매 -->
+	<select id="sellFemale" parameterType="com.twoEx.bean.ProductBean" resultType="int">
+		        select count(*) 
+        from ord inner join buy on ord_buycode=buy_code
+           WHERE ORD_PRDSELCODE =  #{prdSelCode} and buy_Gender='F'
+	</select>
+	<!--  -->
+	
+	
+						<!-- 지도 등록 삭제 수정 관련 -->
+		<!-- 지도정보  -->
+	<select id="getLocationInfo" parameterType="com.twoEx.bean.ClassroomBean"  resultType="com.twoEx.bean.LocationBean">
+	select LOC_CLAPRDCODE AS locClaPrdcode,
+	LOC_CLASELCODE as locClaSelCode,
+	LOC_CLACTECODE as locClaCteCode,
+	LOC_CODE as locCode,
+	LOC_NAME as locName,
+	LOC_INFO as locInfo	
+	from loc
+	where loc_claprdcode = #{claPrdCode}  and loc_claselcode= #{claSelCode} and loc_clactecode=#{claCteCode}
+	</select>
+	
+	<select id="getlocInfo" parameterType="com.twoEx.bean.LocationBean"  resultType="com.twoEx.bean.LocationBean">
+	select LOC_CLAPRDCODE AS locClaPrdcode,
+	LOC_CLASELCODE as locClaSelCode,
+	LOC_CLACTECODE as locClaCteCode,
+	LOC_CODE as locCode,
+	LOC_NAME as locName,
+	LOC_INFO as locInfo	
+	from loc
+	where loc_claprdcode = #{locClaPrdCode}  and loc_claselcode= #{locClaSelCode} and loc_clactecode=#{locClaCteCode}
+	</select>
+	
+	<select id="getLocationPOS" parameterType="com.twoEx.bean.ClassroomBean"  resultType="com.twoEx.bean.LocationBean">
+	select 
+			LOC_POS as locPOS
+	from loc
+	where loc_claprdcode = #{claPrdCode}  and loc_claselcode= #{claSelCode} and loc_clactecode=#{claCteCode}
+	</select>
+	
+	<select id="getlocPOS" parameterType="com.twoEx.bean.LocationBean"  resultType="com.twoEx.bean.LocationBean">
+	select 
+			LOC_POS as locPOS
+	from loc
+	where loc_claprdcode = #{locClaPrdCode}  and loc_claselcode= #{locClaSelCode} and loc_clactecode=#{locClaCteCode}
+	</select>
+<!-- 지도정보 등록 -->
+	<insert id="addLocation" parameterType="com.twoEx.bean.LocationBean" >
+	INSERT INTO LOC(LOC_CLAPRDCODE,LOC_CLASELCODE,LOC_CLACTECODE,LOC_CODE,LOC_NAME,LOC_INFO,LOC_POS)
+	VALUES(#{locClaPrdCode},#{locClaSelCode},#{locClaCteCode},#{locCode},#{locName},#{locInfo},#{locPOS})
+	</insert>
+	<!-- 지도정보 수정 -->
+		<update id="updLocation" parameterType="com.twoEx.bean.LocationBean" >
+	UPDATE LOC SET	LOC_POS	= #{locPOS} 
+	WHERE LOC_CLAPRDCODE=#{locClaPrdCode} AND LOC_CLASELCODE=#{locClaSelCode} AND LOC_CLACTECODE=#{locClaCteCode} AND LOC_CODE=#{locCode}
+	</update>
+	<!-- 지도정보 삭제 -->
+	<delete id="delLocation" parameterType="com.twoEx.bean.LocationBean" >
+	DELETE  FROM LOC 
+	WHERE LOC_CLAPRDCODE=#{locClaPrdCode} AND LOC_CLASELCODE=#{locClaSelCode} AND LOC_CLACTECODE=#{locClaCteCode} AND LOC_CODE=#{locCode}
+	</delete>
+	<!--  이번달 판매실적 -->
+	<select id="sellMonth" parameterType="com.twoEx.bean.ProductBean" resultType="int">
+		SELECT count(*)
+		FROM ORD INNER JOIN PRD ON ORD_PRDSELCODE = PRD_SELCODE AND ORD_PRDCODE = PRD_CODE AND ORD_PRDCTECODE = PRD_CTECODE
+         		 INNER JOIN PRF ON PRD_CODE = PRF_PRDCODE AND PRD_SELCODE = PRF_PRDSELCODE AND PRF_PRDCTECODE = PRD_CTECODE
+         		 INNER JOIN BUY ON ORD_BUYCODE = BUY_CODE
+		WHERE ORD_PRDSELCODE = #{prdSelCode} AND ORD_DATE BETWEEN  TRUNC(SYSDATE, 'MM')
+                                                            AND  to_char(sysdate, 'yyyy-mm-dd')
+	
+	</select>
+	<!-- 전달 판매실적 -->
+	<select id="sellMonth2" parameterType="com.twoEx.bean.ProductBean" resultType="int">
+		SELECT COUNT(*)
+        FROM ORD INNER JOIN PRD ON ORD_PRDSELCODE = PRD_SELCODE AND ORD_PRDCODE = PRD_CODE AND ORD_PRDCTECODE = PRD_CTECODE
+                  INNER JOIN PRF ON PRD_CODE = PRF_PRDCODE AND PRD_SELCODE = PRF_PRDSELCODE AND PRF_PRDCTECODE = PRD_CTECODE
+                  INNER JOIN BUY ON ORD_BUYCODE = BUY_CODE
+        WHERE ORD_PRDSELCODE = #{prdSelCode} AND ORD_DATE        BETWEEN ADD_MONTHS(TRUNC(SYSDATE, 'MM'), -1)
+                                                            AND   LAST_DAY(ADD_MONTHS(TRUNC(SYSDATE,'MM'), -1))
+	</select>
+	
+	
+	<select id="getLocCode" resultType="string">
+		 select to_char(coalesce(max(loc_code)+1, 0), 'FM00') as locCode from loc where loc_claSelCode=#{claSelCode} and loc_claCteCode=#{claCteCode} and loc_claPrdCode=#{claPrdCode}
+	
+	</select>
+	
+	<select id="getPrdCode" resultType="string">
+	 select to_char(coalesce(max(prd_code)+1, 0), 'FM00000') as prdCode
+        from prd where prd_selCode= #{prdSelCode}
+	</select>
+	
+	<select id="getPrfCode" resultType="string">
+	select '0000' FROM DUAL
+	</select>
+	
+	<insert id="insPrf" parameterType="com.twoEx.bean.ProductBean">
+	INSERT INTO PRF(PRF_PRDCODE,PRF_PRDCTECODE,PRF_PRDSELCODE,PRF_FILCODE,prf_filname,PRF_LOCATION)
+					VALUES(#{prdCode},#{prdCteCode},#{prdSelCode},'0000',#{prfName},#{prfLocation})	
+	</insert>
+	
+	<select id="getLastOrder" parameterType="com.twoEx.bean.OrderBean" resultType="com.twoEx.bean.OrderDetailBean">
+		SELECT ord_buycode as odtBuyCode,
+        ord_date as odtDate,
+        prd_name as odtPrdName,        
+        TO_CHAR(prd_price, 'FM999,999,999,999,999') AS odtPrdPrice,
+        buy_email as odtBuyEmail,
+        buy_nickname as odtBuyNickname,
+        buy_profile as odtBuyProfile
+FROM ORD inner join buy on ord_buycode=buy_code
+            inner join prd on ord_prdcode=prd_code and ord_prdSelCode=prd_selCode and ord_prdCteCode=prd_ctecode
+WHERE 1=1
+AND ORD_DATE IN (SELECT MAX(ORD_DATE) FROM ORD WHERE ORD_BUYCODE=#{ordBuyCode})
+	</select>
+	
+	
+	
+
+<!-- 	<insert id="insPrdImage" parameterType="com.twoEx.bean.ProductBean"> -->
+	
+<!-- 	INSERT INTO PRF(PRF_PRDCODE,PRF_PRDCTECODE,PRF_PRDSELCODE,PRF_FILCODE,PRF_FINMANE,PRF_LOCATION) -->
+<!-- 					VALUES(#{},#{},#{},#{},#{},#{}) -->
+	
+<!-- 	</insert> -->
+	<!--  -->
+	
+	<!-- 상점정보수정 -->
+	<!-- 상점이름수정 -->
+	<!-- 공지관리 -->
+	<!-- 지도관리 -->
+	<!-- 구매 -->
+	<!--  -->
+</mapper>

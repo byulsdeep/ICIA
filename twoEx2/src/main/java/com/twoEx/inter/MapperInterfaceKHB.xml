@@ -1,0 +1,500 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.twoEx.inter.MapperInterfaceKHB">
+	<!-- master -->
+	<insert id="masterInsert" parameterType="com.twoEx.bean.BuyerBean">
+		INSERT INTO BUY(
+			BUY_CODE,
+			BUY_EMAIL,
+			BUY_AGE,
+			BUY_GENDER,
+			BUY_REGION,
+			BUY_NICKNAME,
+			BUY_PROFILE)
+		VALUES(
+			#{buyCode},
+			#{buyEmail},
+			#{buyAge},
+			#{buyGender},
+			#{buyRegion},
+			#{buyNickname},
+			#{buyProfile})
+	</insert>
+	<select id="masterLogIn" parameterType="com.twoEx.bean.BuyerBean" resultType="com.twoEx.bean.BuyerBean">
+		SELECT 
+			BUY_CODE AS BUYCODE,
+			BUY_EMAIL AS BUYEMAIL,
+			BUY_AGE AS BUYAGE,
+			BUY_GENDER AS BUYGENDER,
+			BUY_REGION AS BUYREGION,
+			BUY_NICKNAME AS BUYNICKNAME,
+			BUY_PROFILE AS BUYPROFILE 
+		FROM BUY 
+		WHERE SUBSTR(BUY_CODE, 0, 3) = SUBSTR(#{buyCode}, 0, 3)
+	</select>
+	<!-- assignmentDetail.jsp 채점 -->	
+	<update id="updGrade" parameterType="com.twoEx.bean.SubmittedAssignmentBean" >
+		UPDATE SUB SET
+			SUB_GRADE = #{subGrade}
+		WHERE
+			SUB_ASSCODE = #{subAssCode} AND
+			SUB_ASSCLAPRDCODE = #{subAssClaPrdCode} AND
+			SUB_ASSCLASELCODE = #{subAssClaSelCode} AND
+			SUB_ASSCLACTECODE = #{subAssClaCteCode} AND
+			SUB_STUORDBUYCODE = #{subStuOrdBuyCode} AND
+			SUB_STUORDDATE = TO_DATE(#{subStuOrdDate},'YYYY-MM-DD HH24:MI:SS') AND
+			SUB_DATE = TO_DATE(#{subDate}, 'YYYY-MM-DD HH24:MI:SS')
+	</update>
+	<!-- manageAssignment.jsp 과제 추가 -->
+	<insert id="addAssignment" parameterType="com.twoEx.bean.AssignmentBean">
+		INSERT INTO ASS(
+		    ASS_CLAPRDCODE,
+		    ASS_CLASELCODE,
+		    ASS_CLACTECODE,
+		    ASS_CODE,
+		    ASS_NAME,
+		    ASS_INFO,
+		    ASS_STARTDATE,
+		    ASS_ENDDATE,
+		    ASS_MAXGRADE)
+		VALUES(
+    		#{assClaPrdCode}, #{assClaSelCode}, #{assClaCteCode}, (
+       			SELECT 
+       				TO_CHAR(NVL(MAX(ASS_CODE) +1, 0), 'FM00') 
+       			FROM 
+       				ASS 
+       			WHERE 
+       				ASS_CLAPRDCODE = #{assClaPrdCode} AND ASS_CLASELCODE = #{assClaSelCode} AND ASS_CLACTECODE = #{assClaCteCode}
+    	), #{assName}, #{assInfo}, TO_DATE(#{assStartDate}, 'YYYY-MM-DD'), TO_DATE(#{assEndDate}, 'YYYY-MM-DD'), #{assMaxGrade})
+	</insert>
+	<!-- manageAssignment.jsp 과제 수정 -->
+	<update id="updAssignment" parameterType="com.twoEx.bean.AssignmentBean" >
+		UPDATE ASS SET 
+			ASS_NAME = #{assName}, 
+			ASS_INFO = #{assInfo}, 
+			ASS_STARTDATE = TO_DATE(#{assStartDate},'YYYY-MM-DD'), 
+			ASS_ENDDATE = TO_DATE(#{assEndDate}, 'YYYY-MM-DD'), 
+			ASS_MAXGRADE = #{assMaxGrade}
+		WHERE 
+			ASS_CLASELCODE = #{assClaSelCode} AND 
+			ASS_CLACTECODE = #{assClaCteCode} AND 
+			ASS_CLAPRDCODE = #{assClaPrdCode} AND 
+			ASS_CODE = #{assCode}
+	</update>
+	<!-- manageAssignment.jsp 과제 삭제 -->
+	<delete id="delAssignment" parameterType="com.twoEx.bean.AssignmentBean" >
+		DELETE ASS
+		WHERE 
+			ASS_CLASELCODE = #{assClaSelCode} AND 
+			ASS_CLACTECODE = #{assClaCteCode} AND 
+			ASS_CLAPRDCODE = #{assClaPrdCode} AND 
+			ASS_CODE = #{assCode}
+	</delete>
+	<!-- assignmentDetail.jsp 특정 과제 -->
+	<resultMap id="getOneAssignmentMap" type="com.twoEx.bean.AssignmentBean">
+		<id column="ASSCLAPRDCODE" property="assClaPrdCode" />
+		<id column="ASSCLASELCODE" property="assClaSelCode" />
+		<id column="ASSCLACTECODE" property="assClaCteCode" />
+		<id column="ASSCODE" property="assCode" />
+		<result column="ASS_CLAPRDCODE" property="assClaPrdCode" />
+		<result column="ASS_CLASELCODE" property="assClaSelCode" />
+		<result column="ASS_CLACTECODE" property="assClaCteCode" />
+		<result column="ASS_CODE" property="assCode" />
+		<collection property="submittedAssignment" javaType="java.util.ArrayList" 
+			column="subAssClaPrdCode=ASSCLAPRDCODE subAssClaSelCode=ASSCLASELCODE subAssClaCteCode=ASSCLACTECODE subAssCode=ASSCODE" 
+			ofType="com.twoEx.bean.SubmittedAssignmentBean" select="getSubmittedAssignment2"></collection>
+	</resultMap>
+	<select id="getOneAssignment" parameterType="com.twoEx.bean.AssignmentBean" resultMap="getOneAssignmentMap" >
+		SELECT
+			ASS_CLAPRDCODE AS ASSCLAPRDCODE,
+			ASS_CLASELCODE AS ASSCLASELCODE,
+			ASS_CLACTECODE AS ASSCLACTECODE,
+			ASS_CODE AS ASSCODE,
+			ASS_NAME AS ASSNAME,
+			ASS_INFO AS ASSINFO,
+			ASS_STARTDATE AS ASSSTARTDATE,
+			ASS_ENDDATE AS ASSENDDATE,
+			ASS_MAXGRADE AS ASSMAXGRADE
+		FROM ASS 
+		WHERE 
+			ASS_CLAPRDCODE = #{assClaPrdCode} AND 
+			ASS_CLASELCODE = #{assClaSelCode} AND 
+			ASS_CLACTECODE = #{assClaCteCode} AND
+			ASS_CODE = #{assCode}
+	</select>	
+	<select id="getSubmittedAssignment2" parameterType="com.twoEx.bean.SubmittedAssignmentBean" resultMap="getSubmittedAssignmentFileMap" >
+		SELECT 
+		    SUB_ASSCODE AS SUBASSCODE,
+		    SUB_ASSCLAPRDCODE AS SUBASSCLAPRDCODE,
+		    SUB_ASSCLASELCODE AS SUBASSCLASELCODE,
+		    SUB_ASSCLACTECODE AS SUBASSCLACTECODE,
+		    SUB_STUORDBUYCODE AS SUBSTUORDBUYCODE,
+		    SUB_STUORDDATE AS SUBSTUORDDATE,
+		    SUB_GRADE AS SUBGRADE,
+		    SUB_INFO AS SUBINFO,
+		    SUB_DATE AS SUBDATE,
+		    BUY_NICKNAME AS SUBBUYNICKNAME,
+		    BUY_PROFILE AS SUBBUYPROFILE
+		FROM SUB 
+		INNER JOIN
+		    BUY ON SUB_STUORDBUYCODE = BUY_CODE
+		WHERE
+			SUB_ASSCLAPRDCODE = #{subAssClaPrdCode}	AND
+			SUB_ASSCLASELCODE = #{subAssClaSelCode} AND
+			SUB_ASSCLACTECODE = #{subAssClaCteCode} AND
+			SUB_ASSCODE = #{subAssCode}
+	</select>
+	<resultMap id="getSubmittedAssignmentFileMap" type="com.twoEx.bean.SubmittedAssignmentBean">
+		<id column="SUBASSCLAPRDCODE" property="subAssClaPrdCode" />
+		<id column="SUBASSCLASELCODE" property="subAssClaSelCode" />
+		<id column="SUBASSCLACTECODE" property="subAssClaCteCode" />
+		<id column="SUBASSCODE" property="subAssCode" />
+		<result column="SUB_ASSCLAPRDCODE" property="subAssClaPrdCode" />
+		<result column="SUB_ASSCLASELCODE" property="subAssClaSelCode" />
+		<result column="SUB_ASSCLACTECODE" property="subAssClaCteCode" />
+		<result column="SUB_ASSCODE" property="subAssCode" />
+		<collection property="submittedAssignmentFile" javaType="java.util.ArrayList" 
+			column="sbfSubAssClaPrdCode=SUBASSCLAPRDCODE
+				sbfSubAssClaSelCode=SUBASSCLASELCODE
+				sbfSubAssClaCteCode=SUBASSCLACTECODE
+				sbfSubAssCode=SUBASSCODE
+				sbfSubStuOrdBuyCode=SUBSTUORDBUYCODE
+				sbfSubStuOrdDate=SUBSTUORDDATE" 
+			ofType="com.twoEx.bean.SubmittedAssignmentFileBean" select="getSubmittedAssignmentFiles"></collection>
+	</resultMap>
+	<select id="getSubmittedAssignmentFiles" parameterType="com.twoEx.bean.SubmittedAssignmentFileBean" resultType="com.twoEx.bean.SubmittedAssignmentFileBean" >
+		SELECT
+		    SBF_SUBASSCLAPRDCODE AS SBFSUBASSCLAPRDCODE,
+		    SBF_SUBASSCLASELCODE AS SBFSUBASSCLASELCODE,
+		    SBF_SUBASSCLACTECODE AS SBFSUBASSCLACTECODE,
+		    SBF_SUBSTUORDBUYCODE AS SBFSUBSTUORDBUYCODE,
+		    SBF_SUBSTUORDDATE AS SBFSUBSTUORDDATE,
+		    SBF_SUBASSCODE AS SBFSUBASSCODE,
+		    SBF_FILCODE AS SBFFILCODE,
+		    SBF_FILNAME AS SBFFILNAME,
+		    SBF_LOCATION AS SBFLOCATION
+		FROM SBF
+		WHERE 
+		    SBF_SUBASSCLAPRDCODE = #{sbfSubAssClaPrdCode} AND
+		    SBF_SUBASSCLASELCODE = #{sbfSubAssClaSelCode} AND
+		    SBF_SUBASSCLACTECODE = #{sbfSubAssClaCteCode} AND
+		    SBF_SUBASSCODE = #{sbfSubAssCode} AND
+		    SBF_SUBSTUORDBUYCODE = #{sbfSubStuOrdBuyCode} AND
+		    SBF_SUBSTUORDDATE = TO_DATE(#{sbfSubStuOrdDate},'YYYY-MM-DD HH24:MI:SS')
+	</select>
+	<!-- manageAssignment.jsp -->
+	<resultMap id="getAssignmentMap" type="com.twoEx.bean.ClassroomBean">
+		<id column="CLAPRDCODE" property="claPrdCode" />
+		<id column="CLACTECODE" property="claCteCode" />
+		<id column="CLASELCODE" property="claSelCode" />
+		<result column="CLA_PRDCODE" property="claPrdCode" />
+		<result column="CLA_CTECODE" property="claCteCode" />
+		<result column="CLA_SELCODE" property="claSelCode" />
+		<collection property="assignment" javaType="java.util.ArrayList" 
+			column="assClaPrdCode=CLAPRDCODE assClaCteCode=CLACTECODE assClaSelCode=CLASELCODE" 
+			ofType="com.twoEx.bean.AssignmentBean" select="getAssignment"></collection>
+		<collection property="productFile" javaType="java.util.ArrayList" 
+			column="prfPrdCode=CLAPRDCODE prfPrdCteCode=CLACTECODE prfPrdSelCode=CLASELCODE" 
+			ofType="com.twoEx.bean.ProductFileBean" select="getProductFiles"></collection>
+	</resultMap>
+	<select id="getAssignmentParent" parameterType="com.twoEx.bean.ClassroomBean" resultMap="getAssignmentMap">
+		SELECT
+			CLA_PRDCODE AS CLAPRDCODE,
+			CLA_SELCODE AS CLASELCODE,
+			CLA_CTECODE AS CLACTECODE,
+			CLA_INFO AS CLAINFO,
+			CTE_NAME AS CLACTENAME,
+			PRD_NAME AS CLANAME,
+			PRD_STARTDATE AS CLASTARTDATE,
+	        PRD_ENDDATE AS CLAENDDATE
+		FROM 
+			CLA 
+				INNER JOIN PRD ON CLA_PRDCODE = PRD_CODE AND CLA_SELCODE = PRD_SELCODE AND CLA_CTECODE = PRD_CTECODE
+				INNER JOIN CTE ON CLA_CTECODE = CTE_CODE	
+		WHERE 
+			CLA_PRDCODE = #{claPrdCode} AND CLA_CTECODE = #{claCteCode} AND CLA_SELCODE = #{claSelCode}
+	</select>	
+	<select id="getAssignment" parameterType="com.twoEx.bean.AssignmentBean" resultType="com.twoEx.bean.AssignmentBean" >
+		SELECT
+			ASS_CLAPRDCODE AS ASSCLAPRDCODE,
+			ASS_CLASELCODE AS ASSCLASELCODE,
+			ASS_CLACTECODE AS ASSCLACTECODE,
+			ASS_CODE AS ASSCODE,
+			ASS_NAME AS ASSNAME,
+			ASS_INFO AS ASSINFO,
+			ASS_STARTDATE AS ASSSTARTDATE,
+			ASS_ENDDATE AS ASSENDDATE,
+			ASS_MAXGRADE AS ASSMAXGRADE
+		FROM ASS 
+		WHERE 
+			ASS_CLAPRDCODE = #{assClaPrdCode} AND 
+			ASS_CLASELCODE = #{assClaSelCode} AND 
+			ASS_CLACTECODE = #{assClaCteCode}	
+	</select>
+	<!-- manageNotice.jsp 공지 추가 -->
+	<select id="getNewNoticeCode" parameterType="com.twoEx.bean.NoticeBean" resultType="string">
+		SELECT
+			TO_CHAR(NVL(MAX(NTC_CODE)+1,0), 'FM00')
+		FROM NTC 
+		WHERE 
+			NTC_CLAPRDCODE = #{ntcClaPrdCode} AND 
+			NTC_CLASELCODE = #{ntcClaSelCode} AND 
+			NTC_CLACTECODE = #{ntcClaCteCode}
+	</select>
+	<insert id="addNotice" parameterType="com.twoEx.bean.NoticeBean" >
+		INSERT 
+		INTO NTC(
+			NTC_CODE, 
+			NTC_CLAPRDCODE, 
+			NTC_CLASELCODE, 
+			NTC_CLACTECODE, 
+			NTC_NAME, 
+			NTC_INFO, 
+			NTC_DATE)
+		VALUES(
+			#{ntcCode}, #{ntcClaPrdCode}, #{ntcClaSelCode}, 
+			#{ntcClaCteCode}, #{ntcName}, #{ntcInfo}, SYSDATE)
+	</insert>
+	<!-- manageNotice.jsp -->
+	<resultMap id="getNoticeMap" type="com.twoEx.bean.ClassroomBean">
+		<id column="CLAPRDCODE" property="claPrdCode" />
+		<id column="CLACTECODE" property="claCteCode" />
+		<id column="CLASELCODE" property="claSelCode" />
+		<result column="CLA_PRDCODE" property="claPrdCode" />
+		<result column="CLA_CTECODE" property="claCteCode" />
+		<result column="CLA_SELCODE" property="claSelCode" />
+		<collection property="notice" javaType="java.util.ArrayList" 
+			column="ntcClaPrdCode=CLAPRDCODE ntcClaCteCode=CLACTECODE ntcClaSelCode=CLASELCODE" 
+			ofType="com.twoEx.bean.NoticeBean" select="getNotice"></collection>
+		<collection property="productFile" javaType="java.util.ArrayList" 
+			column="prfPrdCode=CLAPRDCODE prfPrdCteCode=CLACTECODE prfPrdSelCode=CLASELCODE" 
+			ofType="com.twoEx.bean.ProductFileBean" select="getProductFiles"></collection>
+	</resultMap>
+	<select id="getNoticeParent" parameterType="com.twoEx.bean.ClassroomBean" resultMap="getNoticeMap">
+		SELECT
+			CLA_PRDCODE AS CLAPRDCODE,
+			CLA_SELCODE AS CLASELCODE,
+			CLA_CTECODE AS CLACTECODE,
+			CLA_INFO AS CLAINFO,
+			CTE_NAME AS CLACTENAME,
+			PRD_NAME AS CLANAME,
+			PRD_STARTDATE AS CLASTARTDATE,
+	        PRD_ENDDATE AS CLAENDDATE
+		FROM 
+			CLA 
+				INNER JOIN PRD ON CLA_PRDCODE = PRD_CODE AND CLA_SELCODE = PRD_SELCODE AND CLA_CTECODE = PRD_CTECODE
+				INNER JOIN CTE ON CLA_CTECODE = CTE_CODE	
+		WHERE 
+			CLA_PRDCODE = #{claPrdCode} AND CLA_CTECODE = #{claCteCode} AND CLA_SELCODE = #{claSelCode}
+	</select>	
+	<select id="getNotice" parameterType="java.util.HashMap" resultType="com.twoEx.bean.NoticeBean">
+		SELECT NTC_CLASELCODE AS NTCCLASELCODE,
+			   NTC_CLACTECODE AS NTCCLACTECODE,
+			   NTC_CLAPRDCODE AS NTCCLAPRDCODE,
+			   NTC_CODE	   AS NTCCODE,
+			   NTC_NAME	   AS NTCNAME,
+			   NTC_INFO	   AS NTCINFO,
+			   NTC_DATE	   AS NTCDATE
+		FROM NTC
+		WHERE NTC_CLAPRDCODE= #{ntcClaPrdCode} AND NTC_CLACTECODE= #{ntcClaCteCode} AND NTC_CLASELCODE= #{ntcClaSelCode}  
+	</select>
+	<!-- manageStudent.jsp 1명학생 -->
+	<select id="getOneStudent" parameterType="com.twoEx.bean.StudentBean" resultType="com.twoEx.bean.StudentBean">
+		SELECT
+		    STU_CLASELCODE AS STUCLASELCODE,
+		    STU_CLAPRDCODE AS STUCLAPRDCODE,
+		    STU_CLACTECODE AS STUCLACTECODE,
+		    STU_ORDBUYCODE AS STUORDBUYCODE,
+		    STU_ORDDATE AS STUORDDATE,
+		    STU_ISBANNED AS STUISBANNED,
+		    BUY_NICKNAME AS STUBUYNICKNAME,
+		    BUY_GENDER AS STUBUYGENDER,
+		    BUY_REGION AS STUBUYREGION,
+		    BUY_EMAIL AS STUBUYEMAIL,
+		    BUY_PROFILE AS STUBUYPROFILE,
+		    BUY_AGE AS STUBUYAGE
+		FROM STU
+			INNER JOIN BUY ON BUY_CODE = STU_ORDBUYCODE
+		WHERE STU_CLASELCODE = #{stuClaSelCode} AND STU_CLAPRDCODE = #{stuClaPrdCode} AND STU_CLACTECODE = #{stuClaCteCode} 
+		AND STU_ORDBUYCODE = #{stuOrdBuyCode}
+	</select>
+	<update id="banChat" parameterType="com.twoEx.bean.StudentBean" >
+		UPDATE STU SET STU_ISBANNED = 'B'
+		WHERE 
+		    STU_CLASELCODE = #{stuClaSelCode} AND
+		    STU_CLAPRDCODE = #{stuClaPrdCode} AND 
+		    STU_CLACTECODE = #{stuClaCteCode} AND
+		    STU_ORDBUYCODE = #{stuOrdBuyCode}
+	</update>
+	<update id="unBanChat" parameterType="com.twoEx.bean.StudentBean" >
+		UPDATE STU SET STU_ISBANNED = 'N'
+		WHERE 
+		    STU_CLASELCODE = #{stuClaSelCode} AND
+		    STU_CLAPRDCODE = #{stuClaPrdCode} AND
+		    STU_CLACTECODE = #{stuClaCteCode} AND
+		    STU_ORDBUYCODE = #{stuOrdBuyCode}
+	</update>
+	<!-- manageStudent.jsp 전체학생 -->
+	<resultMap id="getStudentMap" type="com.twoEx.bean.ClassroomBean">
+		<id column="CLAPRDCODE" property="claPrdCode" />
+		<id column="CLACTECODE" property="claCteCode" />
+		<id column="CLASELCODE" property="claSelCode" />
+		<result column="CLA_PRDCODE" property="claPrdCode" />
+		<result column="CLA_CTECODE" property="claCteCode" />
+		<result column="CLA_SELCODE" property="claSelCode" />
+		<collection property="student" javaType="java.util.ArrayList" 
+			column="stuClaPrdCode=CLAPRDCODE stuClaCteCode=CLACTECODE stuClaSelCode=CLASELCODE" 
+			ofType="com.twoEx.bean.StudentBean" select="getStudent"></collection>
+		<collection property="productFile" javaType="java.util.ArrayList" 
+			column="prfPrdCode=CLAPRDCODE prfPrdCteCode=CLACTECODE prfPrdSelCode=CLASELCODE" 
+			ofType="com.twoEx.bean.ProductFileBean" select="getProductFiles"></collection>
+	</resultMap>
+	<select id="getStudentParent" parameterType="com.twoEx.bean.ClassroomBean" resultMap="getStudentMap">
+		SELECT
+			CLA_PRDCODE AS CLAPRDCODE,
+			CLA_SELCODE AS CLASELCODE,
+			CLA_CTECODE AS CLACTECODE,
+			CLA_INFO AS CLAINFO,
+			CTE_NAME AS CLACTENAME,
+			PRD_NAME AS CLANAME,
+			PRD_STARTDATE AS CLASTARTDATE,
+	        PRD_ENDDATE AS CLAENDDATE
+		FROM 
+			CLA 
+				INNER JOIN PRD ON CLA_PRDCODE = PRD_CODE AND CLA_SELCODE = PRD_SELCODE AND CLA_CTECODE = PRD_CTECODE
+				INNER JOIN CTE ON CLA_CTECODE = CTE_CODE	
+		WHERE 
+			CLA_PRDCODE = #{claPrdCode} AND CLA_CTECODE = #{claCteCode} AND CLA_SELCODE = #{claSelCode}
+	</select>	
+	<select id="getStudent" parameterType="java.util.HashMap" resultType="com.twoEx.bean.StudentBean">
+		SELECT
+		    STU_CLASELCODE AS STUCLASELCODE,
+		    STU_CLAPRDCODE AS STUCLAPRDCODE,
+		    STU_CLACTECODE AS STUCLACTECODE,
+		    STU_ORDBUYCODE AS STUORDBUYCODE,
+		    STU_ORDDATE AS STUORDDATE,
+		    STU_ISBANNED AS STUISBANNED,
+		    BUY_NICKNAME AS STUBUYNICKNAME,
+		    BUY_GENDER AS STUBUYGENDER,
+		    BUY_REGION AS STUBUYREGION,
+		    BUY_EMAIL AS STUBUYEMAIL,
+		    BUY_PROFILE AS STUBUYPROFILE,
+		    BUY_AGE AS STUBUYAGE
+		FROM STU
+			INNER JOIN BUY ON BUY_CODE = STU_ORDBUYCODE
+		WHERE STU_CLASELCODE = #{stuClaSelCode} AND STU_CLAPRDCODE = #{stuClaPrdCode} AND STU_CLACTECODE = #{stuClaCteCode}
+	</select>
+	<!-- manageCurriculum.jsp -->
+	<resultMap id="getCurriculumMap" type="com.twoEx.bean.ClassroomBean">
+		<id column="CLAPRDCODE" property="claPrdCode" />
+		<id column="CLACTECODE" property="claCteCode" />
+		<id column="CLASELCODE" property="claSelCode" />
+		<result column="CLA_PRDCODE" property="claPrdCode" />
+		<result column="CLA_CTECODE" property="claCteCode" />
+		<result column="CLA_SELCODE" property="claSelCode" />
+		<collection property="curriculum" javaType="java.util.ArrayList" 
+			column="curClaPrdCode=CLAPRDCODE curClaCteCode=CLACTECODE curClaSelCode=CLASELCODE" 
+			ofType="com.twoEx.bean.CurriculumBean" select="getCurriculum"></collection>
+		<collection property="productFile" javaType="java.util.ArrayList" 
+			column="prfPrdCode=CLAPRDCODE prfPrdCteCode=CLACTECODE prfPrdSelCode=CLASELCODE" 
+			ofType="com.twoEx.bean.ProductFileBean" select="getProductFiles"></collection>
+	</resultMap>
+	<select id="getCurriculumParent" parameterType="com.twoEx.bean.ClassroomBean" resultMap="getCurriculumMap">
+		SELECT
+			CLA_PRDCODE AS CLAPRDCODE,
+			CLA_SELCODE AS CLASELCODE,
+			CLA_CTECODE AS CLACTECODE,
+			CLA_INFO AS CLAINFO,
+			CTE_NAME AS CLACTENAME,
+			PRD_NAME AS CLANAME,
+			PRD_STARTDATE AS CLASTARTDATE,
+	        PRD_ENDDATE AS CLAENDDATE
+		FROM 
+			CLA 
+				INNER JOIN PRD ON CLA_PRDCODE = PRD_CODE AND CLA_SELCODE = PRD_SELCODE AND CLA_CTECODE = PRD_CTECODE
+				INNER JOIN CTE ON CLA_CTECODE = CTE_CODE	
+		WHERE 
+			CLA_PRDCODE = #{claPrdCode} AND CLA_CTECODE = #{claCteCode} AND CLA_SELCODE = #{claSelCode}
+	</select>	
+	<select id="getCurriculum" parameterType="java.util.HashMap" resultType="com.twoEx.bean.CurriculumBean">
+		SELECT
+		    CUR_CODE AS CURCODE,
+		    CUR_CLAPRDCODE AS CURCLAPRDCODE,
+		    CUR_CLASELCODE AS CURCLASELCODE,
+		    CUR_CLACTECODE AS CURCLACTECODE,
+		    CUR_NAME AS CURNAME,
+		    CUR_INFO AS CURINFO,
+		    CUR_STARTDATE AS CURSTARTDATE,
+		    CUR_ENDDATE AS CURENDDATE,
+		    CUR_TIME AS CURTIME
+		FROM CUR
+		WHERE CUR_CLAPRDCODE = #{curClaPrdCode} AND CUR_CLACTECODE = #{curClaCteCode} AND CUR_CLASELCODE = #{curClaSelCode}
+	</select>
+	<!-- 단일 클래스 + 사진 -->
+	<resultMap id="getSellerClassMap" type="com.twoEx.bean.ClassroomBean">
+		<id column="CLAPRDCODE" property="claPrdCode" />
+		<id column="CLACTECODE" property="claCteCode" />
+		<id column="CLASELCODE" property="claSelCode" />
+		<result column="CLA_PRDCODE" property="claPrdCode" />
+		<result column="CLA_CTECODE" property="claCteCode" />
+		<result column="CLA_SELCODE" property="claSelCode" />
+		<collection property="productFile" javaType="java.util.ArrayList" 
+			column="prfPrdCode=CLAPRDCODE prfPrdCteCode=CLACTECODE prfPrdSelCode=CLASELCODE" 
+			ofType="com.twoEx.bean.ProductFileBean" select="getProductFiles"></collection>
+	</resultMap>
+	<select id="getSellerClass" parameterType="com.twoEx.bean.ClassroomBean" resultMap="getSellerClassMap">
+		SELECT
+			CLA_PRDCODE AS CLAPRDCODE,
+			CLA_SELCODE AS CLASELCODE,
+			CLA_CTECODE AS CLACTECODE,
+			CLA_INFO AS CLAINFO,
+			CTE_NAME AS CLACTENAME,
+			PRD_NAME AS CLANAME,
+			PRD_STARTDATE AS CLASTARTDATE,
+	        PRD_ENDDATE AS CLAENDDATE
+		FROM 
+			CLA 
+				INNER JOIN PRD ON CLA_PRDCODE = PRD_CODE AND CLA_SELCODE = PRD_SELCODE AND CLA_CTECODE = PRD_CTECODE
+				INNER JOIN CTE ON CLA_CTECODE = CTE_CODE	
+		WHERE 
+			CLA_PRDCODE = #{claPrdCode} AND CLA_CTECODE = #{claCteCode} AND CLA_SELCODE = #{claSelCode}
+	</select>
+	<!-- 전체 클래스 리스트 + 사진 -->
+	<resultMap id="getSellerClassListMap" type="com.twoEx.bean.ClassroomBean">
+		<id column="CLASELCODE" property="claSelCode" />
+		<result column="CLA_SELCODE" property="claSelCode" />
+		<collection property="productFile" javaType="java.util.ArrayList" 
+			column="prfPrdCode=CLAPRDCODE prfPrdCteCode=CLACTECODE prfPrdSelCode=CLASELCODE" 
+			ofType="com.twoEx.bean.ProductFileBean" select="getProductFiles"></collection>
+	</resultMap>
+	<select id="getSellerClassList" parameterType="com.twoEx.bean.ClassroomBean" resultMap="getSellerClassListMap">
+		SELECT
+			CLA_PRDCODE AS CLAPRDCODE,
+			CLA_SELCODE AS CLASELCODE,
+			CLA_CTECODE AS CLACTECODE,
+			CLA_INFO AS CLAINFO,
+			CTE_NAME AS CLACTENAME,
+			PRD_NAME AS CLANAME,
+			PRD_STARTDATE AS CLASTARTDATE,
+	        PRD_ENDDATE AS CLAENDDATE
+		FROM 
+			CLA 
+				INNER JOIN PRD ON CLA_PRDCODE = PRD_CODE AND CLA_SELCODE = PRD_SELCODE AND CLA_CTECODE = PRD_CTECODE
+				INNER JOIN CTE ON CLA_CTECODE = CTE_CODE
+		WHERE 
+			CLA_SELCODE = #{claSelCode}
+	</select>
+	<select id="getProductFiles" parameterType="java.util.HashMap" resultType="com.twoEx.bean.ProductFileBean">
+		SELECT
+			PRF_FILCODE AS PRFFILCODE,
+			PRF_PRDCODE AS PRFPRDCODE,
+			PRF_PRDCTECODE AS PRFPRDCTECODE,
+			PRF_PRDSELCODE AS PRFPRDSELCODE,
+			PRF_FILNAME AS PRFFILNAME,
+			PRF_LOCATION PRFLOCATION
+		FROM PRF
+		WHERE PRF_PRDCODE = #{prfPrdCode} AND PRF_PRDCTECODE = #{prfPrdCteCode} AND PRF_PRDSELCODE = #{prfPrdSelCode}
+	</select>
+</mapper>

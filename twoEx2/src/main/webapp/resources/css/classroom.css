@@ -1,0 +1,1073 @@
+
+#claTitle{
+	border:  var(--color-white);
+	border-radius: var(--border-radius1);
+    padding: 8px 14px;
+    padding-top: 16px;
+    color: white;
+    background-image: linear-gradient(to top, #a18cd1 0%, #6667AC 100%);
+    height : 80%;
+    margin-top:10px;
+    width: 76%;
+    
+    /*
+    
+    background-color:var(--color-veryPeri);
+	*/
+}
+/*배너존 점선 지우기*/
+
+
+/*메뉴존*/
+.common__menu__Zone {
+	margin-top : 55px;
+	width:15%;
+	border:none
+}
+/* 배너존 */
+.classroom__banner__zone{
+	height : 30%; 
+	border:none;
+	margin-bottom : 1px;
+}
+.common__content__zone{
+	width:78%;
+	height : 150%;
+	border:none;
+	margin-left : 60px; 
+	
+	
+}
+
+
+#claTitle1{
+	margin-top:60px;
+	width: 67%;
+	height : 60%; 
+	float:left;
+}
+#claTitle2{
+	margin-top:60px;
+	width: 33%;
+	float:left;
+	text-align: right;
+	font-size: 14px;
+}
+
+
+.claInfoBtn2{
+	color:white;
+    width:100%;
+    text-align: left;
+}
+
+.cla_name{
+	font-weight: bold;
+	font-size: 40px;
+	width: 100%;
+	float:left;
+	text-align: left;
+}
+.cla_info{
+	width: 300px;
+	font-size: 20px;
+	font-weight: bold;
+	
+}
+.cla_date{
+	margin-top:50px;
+	font-weight: bold;  width : 49.5%;
+	float:left;
+	font-size: 14px;
+	width:100%; 
+}
+
+.cla_totday{
+	width : 50%;
+	font-weight: bold; 
+	float:left;
+	font-size: 14px; 
+	
+}
+.cla_curday{
+	width : 75%;
+	font-weight: bold; 
+	float:left;
+	font-size: 14px; 
+	text-align : right;
+}
+
+.cla_curpercentage{
+	
+	width : 25%;
+	font-weight: bold; 
+	float:right;
+}
+
+
+.claInfoBtn {
+	margin-top:119px;
+	float:right;
+    position: relative;
+    border: none;
+    min-width: 55px;
+    min-height: 30px;
+    background-image: linear-gradient(to top, #a18cd1 0%, #6667AC 100%);
+    border-radius: 1000px;
+    color: white;
+    cursor: pointer;
+    font-weight: 700;
+    transition: 0.3s;
+}
+
+
+.claInfoBtn:hover {
+    transform: scale(1.2);
+}
+.claInfoBtn:hover:after {
+    content: "";
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    position: absolute;
+    z-index: -1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: ring 1.5s infinite;
+}
+
+
+.claInfoBtn2 {
+	margin-top : 5px;
+	float:left;
+    position: relative;
+    border: none;
+    text-align : center;
+    width: 17%;
+    height: 36%;
+    background-image: linear-gradient(to top, #a18cd1 0%, #6667AC 100%);
+    border-radius: 1000px;
+    color: white;
+    cursor: pointer;
+    font-weight: 700;
+    transition: 0.3s;
+}
+
+
+.claInfoBtn2:hover {
+    transform: scale(1.2);
+}
+.claInfoBtn2:hover:after {
+    content: "";
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    position: absolute;
+    z-index: -1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: ring 1.5s infinite;
+}
+
+
+
+
+
+
+/*콘텐츠 타이틀*/
+
+#listTitle{
+	width:100%; height:10%;
+	float:left;	font-size: 30xp;
+	text-align: center;
+}
+
+/*커리컬럼 콘텐츠*/
+
+
+
+div[id^=curList]{
+		padding : 10px;
+		height : 90%;
+		width : 32%;
+		border: solid var(--border-thin	) var(--color-headerGrey);
+		border-radius: var(--border-radius1);
+		font-size: 20px;
+		float : left ;
+		margin-right : 20px;
+}
+
+
+
+
+div[id^=curInfoDiv]{
+	height : 50%;
+}
+
+
+div[id^=curNameTitle]{
+	float : left ;
+	color: #fff;
+    height: 5%;
+    width: 100%;
+    text-align: center;
+    background-image: linear-gradient(to top, #a18cd1 0%, #6667AC 100%);
+    font-size: 20px;
+    border: solid var(--border-thin) var(--color-headerGrey);
+    border-top-left-radius: var(--border-radius1);
+    border-top-right-radius: var(--border-radius1);
+}
+
+div[id^=curNameInfo]{
+	float: left ;
+	color: #000;
+    margin-bottom: 10px;
+    height: 33%;
+    width: 100%;
+    
+    font-size: 20px;
+    border-bottom-left-radius: var(--border-radius1);
+    border-bottom-right-radius: var(--border-radius1);
+    border: solid var(--border-thin) var(--color-headerGrey);
+    text-align : center;
+}
+
+div[id^=curInfoTitle]{
+	float : left ;
+	color: #fff;
+    height: 12%;
+    width: 100%;
+    text-align: center;
+    background-image: linear-gradient(to top, #a18cd1 0%, #6667AC 100%);
+    font-size: 20px;
+    border: solid var(--border-thin) var(--color-headerGrey);
+    border-top-left-radius: var(--border-radius1);
+    border-top-right-radius: var(--border-radius1);
+}
+
+div[id^=curInfoInfo]{
+	float: left ;
+	color: #000;
+    margin-bottom: 10px;
+    height: 100%;
+    width: 100%;
+    
+    font-size: 20px;
+    border-bottom-left-radius: var(--border-radius1);
+    border-bottom-right-radius: var(--border-radius1);
+    border: solid var(--border-thin) var(--color-headerGrey);
+    text-align : center;
+}
+
+div[id^=curDateTitle]{
+	float : left ;
+	color: #fff;
+    height: 5%;
+    width: 100%;
+    text-align: center;
+    background-image: linear-gradient(to top, #a18cd1 0%, #6667AC 100%);
+    font-size: 20px;
+    border: solid var(--border-thin) var(--color-headerGrey);
+    border-top-left-radius: var(--border-radius1);
+    border-top-right-radius: var(--border-radius1);
+}
+
+div[id^=curDateInfo]{
+	float: left ;
+	color: #000;
+    margin-bottom: 10px;
+    height: 33%;
+    width: 100%;
+    
+    font-size: 20px;
+    border-bottom-left-radius: var(--border-radius1);
+    border-bottom-right-radius: var(--border-radius1);
+    border: solid var(--border-thin) var(--color-headerGrey);
+    text-align : center;
+}
+
+div[id^=curTimeTitle]{
+	float : left ;
+	color: #fff;
+    height: 5%;
+    width: 100%;
+    text-align: center;
+    background-image: linear-gradient(to top, #a18cd1 0%, #6667AC 100%);
+    font-size: 20px;
+    border: solid var(--border-thin) var(--color-headerGrey);
+    border-top-left-radius: var(--border-radius1);
+    border-top-right-radius: var(--border-radius1);
+}
+
+div[id^=curTimeInfo]{
+	float: left ;
+	color: #000;
+    margin-bottom: 10px;
+    height: 33%;
+    width: 100%;
+    
+    font-size: 20px;
+    border-bottom-left-radius: var(--border-radius1);
+    border-bottom-right-radius: var(--border-radius1);
+    border: solid var(--border-thin) var(--color-headerGrey);
+    text-align : center;
+}
+
+
+
+div[class^=ntcList]{
+	width:30%;
+	height:100%;
+	float:left;
+	background-color:var(--color-veryPeri);
+	padding : 15px 0;
+	
+}
+div[class^=ntcListNumber]{
+	width:10%;
+}
+
+
+
+
+.common__menu__item.parentItem2{
+	color : rgb(255,111,97);
+	font-size: var(--font-medium);
+    cursor: pointer;
+}
+
+div[id^=claNtcName]{
+	width : 50%; float:left; 
+	font-weight: bold;
+	text-align: center;
+}
+
+div[id^=claNtcDate]{
+	float:left;
+	width : 30%;  
+	font-weight: bold;
+	text-align: center;
+}
+
+div[class^=ntcImgDiv]{
+	float:left;
+	width:100%;
+	background-image: linear-gradient(to top, #a18cd1 0%, #6667AC 100%);
+	
+	border-top-left-radius: var(--border-radius1);
+	border-top-right-radius: var(--border-radius1);
+	border: solid var(--border-thin) var(--color-headerGrey);
+	border-bottom : none;
+}
+
+div[class^=ntcInfoDiv]{
+	
+	float:left;
+	width:100%;
+	
+	
+	
+	border-bottom-left-radius: var(--border-radius1);
+	border-bottom-right-radius: var(--border-radius1);
+	border: solid var(--border-thin) var(--color-headerGrey);
+	border-top : none;
+	
+	
+}
+div[id^=claNtcInfo]{
+	float:left;
+	width : 100%;  
+	font-weight: bold;
+	text-align: left;
+	
+	color : #000;
+	
+		
+}
+
+
+
+
+
+.ntcImg{
+	float:left;
+}
+
+/*연습용*/
+
+/*가장 위 데이터*/
+
+div[id^=claNtcList]{
+	margin-bottom:20px;
+	width:100%;
+	height:25%;
+    color : #fff;
+    font-size: 20px;
+    
+}
+
+
+
+div[id^=claNtcNumber]{
+	width:10%;
+	
+	float:left;
+	text-align:center;
+}
+
+
+
+#common__wrapper{
+	height : 60%; 
+	width: 77%;
+	margin-top:1px;
+	padding : 1px;
+	
+	
+}
+html {
+    height : 100%; 
+}
+
+main {
+    height : 100%; 
+}
+/*common__wrapper*/
+
+
+
+
+
+
+
+/* 과제 목록 CSS*/
+
+
+
+
+.assListTitle{
+	color: #fff;
+    height: 5%;
+    width: 100%;
+    text-align: center;
+    background-image: linear-gradient(to top, #a18cd1 0%, #6667AC 100%);
+    font-size: 20px;
+    border: solid var(--border-thin) var(--color-headerGrey);
+    border-top-left-radius: var(--border-radius1);
+	border-top-right-radius: var(--border-radius1);
+    
+}
+
+div[id^=incAssName]{
+	height: 15%;
+	width: 100%;
+	margin-top : 10px;
+	border: solid var(--border-thin) var(--color-headerGrey);
+	border-radius: var(--border-radius1);
+}
+
+
+
+#assListDiv{
+	height:50%;
+	color: #fff;
+	margin-bottom: 10px;
+    height: 33%;
+    width: 100%;
+    border-radius: var(--border-radius1);
+    background-image: linear-gradient(to top, #a18cd1 0%, #6667AC 100%);
+    font-size: 20px;
+    border: solid var(--border-thin) var(--color-headerGrey);
+    border-radius: var(--border-radius1);
+}
+#exfAssListDiv{
+	height:50%;
+	color: #fff;
+	margin-bottom: 10px;
+    height: 33%;
+    width: 100%;
+    border-radius: var(--border-radius1);
+    background-image: linear-gradient(to top, #a18cd1 0%, #6667AC 100%);
+    font-size: 20px;
+    border: solid var(--border-thin) var(--color-headerGrey);
+    border-radius: var(--border-radius1);
+}
+
+
+
+
+
+
+
+#incAssbigList{
+	color: #000;
+	margin-bottom: 10px;
+    height: 33%;
+    width: 100%;
+    border-bottom-left-radius: var(--border-radius1);
+	border-bottom-right-radius: var(--border-radius1);
+    font-size: 20px;
+    border: solid var(--border-thin) var(--color-headerGrey);
+    
+}
+
+div[id^=incAssList]{
+	margin-top : 10px;
+	margin-bottom : 10px;
+}
+div[id^=incAssName]{
+	border:none;
+	margin-top : 0px; 
+	width : 49%;
+	float : left ;
+}
+
+div[id^=incAssStart]{
+	width : 49%;
+	float : left ;
+}
+
+
+
+
+
+#resAssbigList{
+	color: #000;
+	margin-bottom: 10px;
+    height: 33%;
+    width: 100%;
+    border-bottom-left-radius: var(--border-radius1);
+	border-bottom-right-radius: var(--border-radius1);
+    font-size: 20px;
+    border: solid var(--border-thin) var(--color-headerGrey);
+    
+}
+
+div[id^=resAssList]{
+	margin-top : 10px;
+	margin-bottom : 10px;
+}
+div[id^=resAssName]{
+	width : 49%;
+	float : left ;
+}
+
+div[id^=resAssStart]{
+	width : 49%;
+	float : left ;
+}
+
+
+#comAssbigList{
+	color: #000;
+	margin-bottom: 10px;
+    height: 33%;
+    width: 100%;
+    border-bottom-left-radius: var(--border-radius1);
+	border-bottom-right-radius: var(--border-radius1);
+    font-size: 20px;
+    border: solid var(--border-thin) var(--color-headerGrey);
+    
+}
+
+
+
+
+div[id^=comAssList]{
+	margin-top : 10px;
+	margin-bottom : 10px;
+}
+div[id^=comAssName]{
+	width : 49%;
+	float : left ;
+}
+
+div[id^=comAssStart]{
+	width : 49%;
+	float : left ;
+}
+
+
+
+
+/* 과제 상세 CSS*/
+
+.littleTitle{
+	font-size:40px;	
+	width: 100%;
+    height: 9.4%;
+    
+    color: var(--color-veryPeri);
+}
+
+#assNameTitle{
+	text-align : center;
+}
+
+
+
+button[class=addUploadFileBtn]{
+	color: #fff;
+	margin-bottom: 10px;
+    height: 15%;
+    width: 100%;
+    border-radius: var(--border-radius1);
+    background-image: linear-gradient(to top, #a18cd1 0%, #6667AC 100%);
+    font-size: 20px;
+}
+
+button[id=setUpdBtn]{
+	color: #fff;
+	margin-bottom: 10px;
+    height: 15%;
+    width: 100%;
+    border-radius: var(--border-radius1);
+    background-image: linear-gradient(to top, #a18cd1 0%, #6667AC 100%);
+    font-size: 20px;
+}
+
+input[name=uploadFile]{
+	color: #fff;
+	margin-bottom: 10px;
+    height: 15%;
+    width: 100%;
+    border-radius: var(--border-radius1);
+    background-image: linear-gradient(to top, #a18cd1 0%, #6667AC 100%);
+    font-size: 20px;
+	
+}
+
+
+button[class=deleteFileBtn]{
+	color: #fff;
+	margin-bottom: 10px;
+    height: 15%;
+    width: 100%;
+    border-radius: var(--border-radius1);
+    background-image: linear-gradient(to top, #a18cd1 0%, #6667AC 100%);
+    font-size: 20px;
+}
+
+button[class=submitAssignment]{
+	color: #fff;
+	margin-bottom: 10px;
+    height: 15%;
+    width: 50%;
+    border-radius: var(--border-radius1);
+    background-image: linear-gradient(to top, #a18cd1 0%, #6667AC 100%);
+    font-size: 20px;
+}
+
+
+button[class=returnMoveAssignment]{
+	color: #fff;
+	margin-bottom: 10px;
+	margin-left: 7px;
+    height: 15%;
+    width: 49%;
+    border-radius: var(--border-radius1);
+    background-image: linear-gradient(to top, #a18cd1 0%, #6667AC 100%);
+    font-size: 20px;
+}
+
+button[class=unsubmitAssignmentBtn]{
+	
+	color: #fff;
+	margin-bottom: 10px;
+    height: 15%;
+    width: 50%;
+    border-radius: var(--border-radius1);
+    background-image: linear-gradient(to top, #a18cd1 0%, #6667AC 100%);
+    font-size: 20px;
+}
+
+button[id=updBtn]{
+	color: #fff;
+	margin-bottom: 10px;
+    margin-right:4px;
+    height: 15%;
+    width: 49%;
+    border-radius: var(--border-radius1);
+    background-image: linear-gradient(to top, #a18cd1 0%, #6667AC 100%);
+    font-size: 20px;
+}
+
+button[id=delBtn]{
+	color: #fff;
+	margin-bottom: 10px;
+    height: 15%;
+    width: 49%;
+    border-radius: var(--border-radius1);
+    background-image: linear-gradient(to top, #a18cd1 0%, #6667AC 100%);
+    font-size: 20px;
+}
+
+
+input[name^=cur]{
+	color: #fff;
+	margin-bottom: 10px;
+    height: 15%;
+    width: 50%;
+    border-radius: var(--border-radius1);
+    background-image: linear-gradient(to top, #a18cd1 0%, #92A8D1 100%);
+    font-size: 20px;
+}
+
+button[id=insBtn]{
+	color: #fff;
+	margin-bottom: 10px;
+    height: 15%;
+    width: 50%;
+    border-radius: var(--border-radius1);
+    background-image: linear-gradient(to top, #a18cd1 0%, #6667AC 100%);
+    font-size: 20px;
+}
+
+
+
+
+
+
+
+
+
+.fc-event-title-container{
+		background-image: linear-gradient(to top, #a18cd1 0%, #6667AC 100%);
+}	    
+.fc .fc-daygrid-day.fc-day-today{
+		background-image: linear-gradient(to top, #FBC2EB 0%, #92A8D1 100%);
+}
+.fc .fc-button-primary:not(:disabled):active, .fc .fc-button-primary:not(:disabled).fc-button-active{
+		background-image: linear-gradient(to top, #FBC2EB 0%, #92A8D1 100%);
+}
+
+.fc .fc-button-primary {
+		background-image: linear-gradient(to top, #a18cd1 0%, #6667AC 100%);
+	}
+
+	
+	
+	
+/* 과제 상세 CSS*/
+#assNameTitle{
+	color: #fff;
+    height: 5%;
+    width: 100%;
+    text-align: center;
+    background-image: linear-gradient(to top, #a18cd1 0%, #6667AC 100%);
+    font-size: 20px;
+    border: solid var(--border-thin) var(--color-headerGrey);
+    border-top-left-radius: var(--border-radius1);
+    border-top-right-radius: var(--border-radius1);
+}
+
+#assNameInfo{
+	color: #000;
+    margin-bottom: 10px;
+    height: 33%;
+    width: 100%;
+    border-bottom-left-radius: var(--border-radius1);
+    border-bottom-right-radius: var(--border-radius1);
+    font-size: 20px;
+    border: solid var(--border-thin) var(--color-headerGrey);
+    text-align : center;
+}
+
+#assInfoTitle{
+	color: #fff;
+    height: 5%;
+    width: 100%;
+    text-align: center;
+    background-image: linear-gradient(to top, #a18cd1 0%, #6667AC 100%);
+    font-size: 20px;
+    border: solid var(--border-thin) var(--color-headerGrey);
+    border-top-left-radius: var(--border-radius1);
+    border-top-right-radius: var(--border-radius1);
+}
+#assInfoInfo{
+	color: #000;
+    margin-bottom: 10px;
+    height: 33%;
+    width: 100%;
+    border-bottom-left-radius: var(--border-radius1);
+    border-bottom-right-radius: var(--border-radius1);
+    font-size: 20px;
+    border: solid var(--border-thin) var(--color-headerGrey);
+    text-align : center;
+}
+
+#assStartDateDiv{
+	float : left;
+	width:30%;
+}
+#assEndDateDiv{
+	float : left;
+	width:30%;
+	margin-left : 45px;
+}
+#assMaxGradeDiv{
+	float : left;
+	width:30%;
+}
+
+
+
+#assStartDateTitle{
+	
+	color: #fff;
+    height: 5%;
+    width: 100%;
+    text-align: center;
+    background-image: linear-gradient(to top, #a18cd1 0%, #6667AC 100%);
+    font-size: 20px;
+    border: solid var(--border-thin) var(--color-headerGrey);
+    border-top-left-radius: var(--border-radius1);
+    border-top-right-radius: var(--border-radius1);
+}
+
+#assStartDateInfo{
+	color: #000;
+    margin-bottom: 10px;
+    height: 33%;
+    width: 100%;
+    border-bottom-left-radius: var(--border-radius1);
+    border-bottom-right-radius: var(--border-radius1);
+    font-size: 20px;
+    border: solid var(--border-thin) var(--color-headerGrey);
+    text-align : center;
+}
+
+#assEndDateTitle{
+	color: #fff;
+    height: 5%;
+    width: 100%;
+    text-align: center;
+    background-image: linear-gradient(to top, #a18cd1 0%, #6667AC 100%);
+    font-size: 20px;
+    border: solid var(--border-thin) var(--color-headerGrey);
+    border-top-left-radius: var(--border-radius1);
+    border-top-right-radius: var(--border-radius1);
+}
+
+#assEndDateInfo{
+	color: #000;
+    margin-bottom: 10px;
+    height: 33%;
+    width: 100%;
+    border-bottom-left-radius: var(--border-radius1);
+    border-bottom-right-radius: var(--border-radius1);
+    font-size: 20px;
+    border: solid var(--border-thin) var(--color-headerGrey);
+    text-align : center;
+}
+
+
+#assMaxGradeTitle{
+	color: #fff;
+    height: 5%;
+    width: 100%;
+    text-align: center;
+    background-image: linear-gradient(to top, #a18cd1 0%, #6667AC 100%);
+    font-size: 20px;
+    border: solid var(--border-thin) var(--color-headerGrey);
+    border-top-left-radius: var(--border-radius1);
+    border-top-right-radius: var(--border-radius1);
+}
+
+#assMaxGradeInfo{
+	color: #000;
+    margin-bottom: 10px;
+    height: 33%;
+    width: 100%;
+    
+    font-size: 20px;
+    border-bottom-left-radius: var(--border-radius1);
+    border-bottom-right-radius: var(--border-radius1);
+    border: solid var(--border-thin) var(--color-headerGrey);
+    text-align : center;
+}
+
+
+#assUploadInfoDiv{
+	float:left;
+}
+
+#subInfoTitle{
+	color: #fff;
+    height: 5%;
+    width: 100%;
+    text-align: center;
+    background-image: linear-gradient(to top, #a18cd1 0%, #6667AC 100%);
+    font-size: 20px;
+    border: solid var(--border-thin) var(--color-headerGrey);
+    border-top-left-radius: var(--border-radius1);
+    border-top-right-radius: var(--border-radius1);
+}
+
+
+textarea[name=subInfo]{
+	margin-bottom: 10px;
+    height: 15%;
+    width: 100%;
+    font-size: 20px;
+	border-bottom-left-radius: var(--border-radius1);
+    border-bottom-right-radius: var(--border-radius1);
+    border: solid var(--border-thin) var(--color-headerGrey);
+}
+
+
+textarea[name=curInfo]{
+	color : #fff;
+	margin-bottom: 10px;
+    height: 15%;
+    width: 100%;
+    font-size: 20px;
+    background-image: linear-gradient(to top, #a18cd1 0%, #92A8D1 100%);
+    border-radius: var(--border-radius1);
+    border: solid var(--border-thin) var(--color-headerGrey);
+}
+
+#assSubmittedFileListTitle{
+	float : left ;
+	color: #fff;
+    height: 5%;
+    width: 100%;
+    text-align: center;
+    background-image: linear-gradient(to top, #a18cd1 0%, #6667AC 100%);
+    font-size: 20px;
+    border: solid var(--border-thin) var(--color-headerGrey);
+    border-top-left-radius: var(--border-radius1);
+    border-top-right-radius: var(--border-radius1);
+}
+#assSubmittedFileListInfo{
+	float: left ;
+	color: #000;
+    margin-bottom: 10px;
+    height: 33%;
+    width: 100%;
+    
+    font-size: 20px;
+    border-bottom-left-radius: var(--border-radius1);
+    border-bottom-right-radius: var(--border-radius1);
+    border: solid var(--border-thin) var(--color-headerGrey);
+    text-align : center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*캘린더rgb(0, 0, 0)#calendar{
+	color: #000;
+}
+
+a{
+	color: #000;
+}
+.fc-scrollgrid.fc-scrollgrid-liquid{
+		color: #000;
+}
+.fc-col-header-cell-cushion{
+	color: #000;
+}
+
+/*매니지먼트 커리큘럼*/
+
+#littleTilte{
+	margin-left :20px;
+}
+#contents1{
+	width : 50%;
+	font-size: var(--font-medium);
+    font-weight: var(--weight-bold);
+    color: var(--color-black);
+    margin: 8px 0;
+}
+
+#contents2{
+	color: #fff;
+	margin-left : 10px;
+	margin-top : 44px;
+	margin-bottom: 10px;
+    height: 100%;
+    width: 35%;
+    border-radius: var(--border-radius1);
+    background-image: linear-gradient(to top, #a18cd1 0%, #6667AC 100%);
+    font-size: 20px;
+    border: solid var(--border-thin) var(--color-headerGrey);
+}
+
+/*커리컬럼 관리*/
+div[id^=mCurList]{
+	    color: #fff;
+		height : 30%;
+		width : 90%;
+		border: solid var(--border-thin) var(--color-headerGrey);
+		border-radius: var(--border-radius1);
+		background-image: linear-gradient(to top, #a18cd1 0%, #6667AC 100%);
+		font-size: 20px;
+		margin : 10px;
+}
+
+div[id^=mCurInfo]{
+	height : 35%;
+}
+
+
+#curInfo{
+	height : 30%;
+}
+
+
+
+/*채팅방*/
+#chats{
+	color: #fff;
+	margin-bottom: 10px;
+    height: 33%;
+    width: 100%;
+    border-radius: var(--border-radius1);
+    background-image: linear-gradient(to top, #a18cd1 0%, #6667AC 100%);
+    font-size: 20px;
+    border: solid var(--border-thin) var(--color-headerGrey);
+    border-radius: var(--border-radius1);
+    overflow-y: scroll;
+}
+
+
+
+
+
+
+/*파일선택 css*/
+input[type=file]::file-selector-button {
+  width: 150px;
+  height: 30px;
+  background: #6B83C2;
+  border: 1px solid rgb(77,77,77);
+  border-radius: 10px;
+  cursor: pointer;
+  color:#fff;
+}
+
+div[id^=exfAssList]{
+	width : 49%;
+	float : left ;
+}
+div[id^=insAssList]{
+	width : 49%;
+	float : left ;
+}
+
+                 

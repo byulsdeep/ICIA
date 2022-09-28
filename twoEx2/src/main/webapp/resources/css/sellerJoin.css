@@ -1,0 +1,130 @@
+@charset "UTF-8";
+
+
+#join__title__section{
+	margin : 0.1rem auto;
+	padding-top: 60px;
+	/*
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	*/
+  }
+  
+  .joinPage__logo{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+  
+  }
+  
+  .joinPage__twoEx{
+  
+	font-family: 'Russo One', sans-serif;
+	font-size: 40px;
+	font-weight: var(--weight-bold);
+	color: var(--color-veryPeri);
+	cursor:pointer;
+  
+  }  
+  
+  .joinPage__expertsExchange{
+	/*font-family: 'Russo One', sans-serif;*/
+	font-family:'Orbitron', sans-serif;
+	font-size: var(--font-medium);
+	font-weight: 800;
+	color: var(--color-black);
+  }
+  
+  
+
+
+  /* 두번째 섹션 ****************************************/
+  
+  #join__section{
+	padding-top: 45px;
+	margin-bottom: 15px;
+  }
+  
+  .join__container{
+	margin : auto;
+	/*height : 450px;*/
+	width : 720px;
+	border: solid 1.5px var(--color-headerGrey);
+	border-radius: 10px;
+	padding : 40px 50px;
+
+	text-align: center;
+
+	margin-bottom: 20px;
+  }
+  
+  .join__title{
+	padding: 10px;
+  
+  }
+  .join_description{
+	padding: 5px;
+	padding-bottom: 30px;
+  }
+  
+  
+
+.sellseInput{
+		float :left;
+}
+
+
+.content__btn.btn__small.checkSelCode,
+.content__btn.btn__small.reEnter{
+	width : 70px;
+	font-size: 12px;
+	cursor:pointer;
+
+}
+.content__btn.btn__small.checkSelCode{
+	margin-right: 5px;
+}
+
+/***********************/
+.join__item__div{
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	margin-bottom: 20px;
+
+}
+
+
+.item__name{
+	height : 50px;
+	width : 110px;
+
+	text-align: left;
+	line-height : 50px;
+	font-size: 20px;
+	font-weight: 600;
+}
+
+.item__input {
+	width : 350px;
+	height : 50px;
+
+	border : solid 1px var(--color-headerGrey);
+	border-radius: 7px;
+	padding: 15px;
+	font-size: 15px;
+
+	margin-right : 15px;
+}
+
+
+.content__btn.btn__blueGreen.large{
+	margin-top : 15px;
+	cursor:pointer;
+}
+
+#section__bottom{
+	height: 20px;
+}

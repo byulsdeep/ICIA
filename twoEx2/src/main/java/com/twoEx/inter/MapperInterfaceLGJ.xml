@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.twoEx.inter.MapperInterfaceLGJ">
+	
+	<resultMap id="getClassNtcInfo"  type="com.twoEx.bean.ClassroomBean">
+		<id column="CLASELCODE" property="claSelCode" />
+		<result column="CLACTECODE" property="claCteCode" />
+		<result column="CLAPRDCODE" property="claPrdCode" />
+		<result column="CLANAME" property="claName" />
+		<result column="CLAINFO" property="claInfo" />
+		<result column="CLASTARTDATE" property="claStartDate" />
+		<result column="CLAENDDATE" property="claEndDate" />
+		<result column="CLATOTDAY" property="claTotDay" />
+		<result column="CLAREMDAY" property="claRemDay" />
+		<result column="CLACURDAY" property="claCurDay" />
+		<result column="CLACURPERCENTAGE" property="claCurPercentage" />
+		<collection property="notice" javaType="java.util.ArrayList" column="{claSelCode=CLASELCODE, claCteCode=CLACTECODE, claPrdCode=CLAPRDCODE}" ofType="com.twoEx.bean.NoticeBean" select="getNoticeInfo"></collection>
+	</resultMap>
+	<resultMap id="getAssignmentInfo" type="com.twoEx.bean.AssignmentBean">
+		<id column="ASSCLASELCODE" property="assClaSelCode" />
+		<result column="ASSCLACTECODE" property="assClaCteCode" />
+		<result column="ASSCLAPRDCODE" property="assClaPrdCode" />
+		<result column="ASSCODE" property="assCode" />
+		<result column="ASSNAME" property="assName" />
+		<result column="ASSINFO" property="assInfo" />
+		<result column="ASSSTARTDATE" property="assStartDate" />
+		<result column="ASSENDDATE" property="assEndDate" />
+		<result column="ASSMAXGRADE" property="assMaxGrade" />
+		<result column="ASSSTATE" property="assState" />
+		<result column="ASSSTATE2" property="assState2" />
+		<result column="ASSBUYCODE" property="assBuyCode" />
+		<collection property="submittedAssignment" javaType="java.util.ArrayList" column="{assClaSelCode=ASSCLASELCODE, assClaCteCode=ASSCLACTECODE, assClaPrdCode=ASSCLAPRDCODE, assCode=ASSCODE, assBuyCode=ASSBUYCODE}" ofType="com.twoEx.bean.SubmittedAssignmentBean" select="getSubmittedAssignment"></collection>
+	</resultMap>
+	<!--  
+	<resultMap id="getSubmittedAssignment" type="com.twoEx.bean.SubmittedAssignmentBean" >
+		<id column="SUBASSCLASELCODE" property="subAssClaSelCode" />
+		<id column="SUBASSCLACTECODE" property="subAssClaCteCode" />
+		<id column="SUBASSCLAPRDCODE" property="subAssClaPrdCode" />
+		<id column="SUBASSCODE" property="subAssCode" />
+		<id column="SUBSTUORDBUYCODE" property="subStuOrdBuyCode" />
+		<id column="SUBSTUORDDATE" property="subStuOrdDate" />
+		<id column="SUBGRADE" property="subGrade" />
+		<id column="SUBINFO" property="subInfo" />
+		<id column="SUBDATE" property="subDate" />
+		<collection property="submittedAssignmentFile" javaType="java.util.ArrayList" column="{assClaSelCode=ASSCLASELCODE, assClaCteCode=ASSCLACTECODE, assClaPrdCode=ASSCLAPRDCODE, assCode=ASSCODE, assBuyCode=ASSBUYCODE}" ofType="com.twoEx.bean.SubmittedAssignmentFileBean" select="getSubmittedAssignmentFile"></collection>
+	</resultMap>
+	--> 
+	<select id="getCurriculumInfo" parameterType="com.twoEx.bean.ClassroomBean" resultType="com.twoEx.bean.CurriculumBean">
+		SELECT
+		    CUR_CODE AS CURCODE,
+		    CUR_CLAPRDCODE AS CURCLAPRDCODE,
+		    CUR_CLASELCODE AS CURCLASELCODE,
+		    CUR_CLACTECODE AS CURCLACTECODE,
+		    CUR_NAME AS CURNAME,
+		    CUR_INFO AS CURINFO,
+		    CUR_STARTDATE AS CURSTARTDATE,
+		    CUR_ENDDATE AS CURENDDATE,
+		    CUR_TIME AS CURTIME
+		FROM CUR
+		WHERE CUR_CLAPRDCODE = #{claPrdCode} AND CUR_CLACTECODE = #{claCteCode} AND CUR_CLASELCODE = #{claSelCode}
+	</select>
+	<select id= "getClassCurInfoDas" parameterType="com.twoEx.bean.ClassroomBean" resultMap= "getClassNtcInfo" >
+	SELECT * FROM CLASSINFO
+	WHERE (CLASELCODE= #{claSelCode} AND CLACTECODE=#{claCteCode} AND CLAPRDCODE=#{claPrdCode})
+	</select>
+	
+	
+	<select id= "getNoticeInfo" parameterType="java.util.HashMap" resultType="com.twoEx.bean.NoticeBean">
+		SELECT NTC_CLASELCODE AS NTCCLASELCODE,
+			   NTC_CLACTECODE AS NTCCLACTECODE,
+			   NTC_CLAPRDCODE AS NTCCLAPRDCODE,
+			   NTC_CODE	   AS NTCCODE,
+			   NTC_NAME	   AS NTCNAME,
+			   NTC_INFO	   AS NTCINFO,
+			   NTC_DATE	   AS NTCDATE
+		FROM NTC
+		WHERE (NTC_CLASELCODE=#{claSelCode} AND NTC_CLACTECODE=#{claCteCode} AND NTC_CLAPRDCODE=#{claPrdCode})
+	</select>
+	<!-- 구매자 과제리스트 -->
+	<select id="getAssignmentInfo" parameterType="com.twoEx.bean.ClassroomBean" resultMap= "getAssignmentInfo">
+	 SELECT ASS_CLASELCODE AS ASSCLASELCODE,
+ 	   ASS_CLACTECODE AS ASSCLACTECODE,
+       ASS_CLAPRDCODE AS ASSCLAPRDCODE,
+       ASS_CODE AS ASSCODE,
+       ASS_NAME AS ASSNAME,
+       ASS_INFO AS ASSINFO,
+       ASS_STARTDATE AS ASSSTARTDATE,
+       ASS_ENDDATE AS ASSENDDATE,
+       ASS_MAXGRADE AS ASSMAXGRADE,
+       ASS.ASS_ENDDATE-TO_DATE(SYSDATE, 'YY-MM-DD') AS ASSSTATE,
+       TO_DATE(SYSDATE, 'YY-MM-DD')- ASS.ASS_STARTDATE AS ASSSTATE2,
+       STU.STU_ORDBUYCODE AS ASSBUYCODE,
+       STU.STU_ORDDATE AS ASSBUYDATE
+        FROM ASS INNER JOIN STU ON (ASS.ASS_CLASELCODE=STU.STU_CLASELCODE AND ASS.ASS_CLACTECODE=STU.STU_CLACTECODE AND ASS.ASS_CLAPRDCODE=STU.STU_CLAPRDCODE)
+      WHERE (STU_CLASELCODE=#{claSelCode} AND STU_CLACTECODE=#{claCteCode} AND STU_CLAPRDCODE=#{claPrdCode} AND STU.STU_ORDBUYCODE=#{buyCode})
+	</select>
+	
+	<select id="getScheduleInfo" parameterType="com.twoEx.bean.ClassroomBean" resultType="com.twoEx.bean.ScheduleBean">
+	SELECT ASS_NAME AS "TITLE",
+       ASS_STARTDATE AS "START",
+       ASS_ENDDATE AS "END"
+FROM ASS WHERE ASS_CLASELCODE= #{claSelCode} AND ASS_CLACTECODE= #{claCteCode} AND ASS_CLAPRDCODE= #{claPrdCode}
+	</select>
+	
+	<!--  
+	<select id="getSubmittedAssignment" parameterType="java.util.Map" resultType= "com.twoEx.bean.SubmittedAssignmentFileBean">
+	SELECT SUB_ASSCLASELCODE AS SUBASSCLASELCODE,
+	       SUB_ASSCLACTECODE AS SUBASSCLACTECODE,
+		   SUB_ASSCLAPRDCODE AS SUBASSCLAPRDCODE,
+		   SUB_ASSCODE AS SUBASCODE,
+		   SUB_GRADE AS SUBGRADE,
+		   SUB_STUORDDATE AS SUBSTUORDDATE,
+		   SUB_INFO  AS SUBINFO,
+		   SUB_DATE AS SUB_DATE
+	FROM SUB
+	WHERE (SUB_ASSCLAPRDCODE=#{assClaPrdCode} AND SUB_ASSCLASELCODE=#{assClaSelCode} AND SUB_ASSCLACTECODE=#{assClaCteCode} 
+	AND SUB_ASSCODE =#{assCode} AND SUB.SUB_STUORDBUYCODE=#{assBuyCode})
+	</select>
+	-->
+	 
+	<select id="getSubmittedAssignment" parameterType="java.util.Map" resultType="com.twoEx.bean.SubmittedAssignmentBean">
+	SELECT SUB.SUB_GRADE AS SUBGRADE,
+		   SUB.SUB_STUORDDATE AS SUBSTUORDDATE,
+		   SUB.SUB_INFO  AS SUBINFO,
+		   SUB.SUB_DATE AS SUBDATE,
+           SBF.SBF_FILNAME AS SBFFILNAME
+	FROM SUB LEFT OUTER JOIN SBF ON( SUB_ASSCLAPRDCODE=SBF_SUBASSCLAPRDCODE AND SUB_ASSCLACTECODE=SBF_SUBASSCLACTECODE AND SUB_ASSCLASELCODE=SBF_SUBASSCLASELCODE AND 
+            SUB_ASSCODE= SBF_SUBASSCODE)
+	WHERE (SUB_ASSCLAPRDCODE=#{assClaPrdCode} AND SUB_ASSCLASELCODE=#{assClaSelCode} AND SUB_ASSCLACTECODE=#{assClaCteCode} 
+	AND SUB_ASSCODE =#{assCode} AND SUB.SUB_STUORDBUYCODE=#{assBuyCode})
+	</select>
+	<!--  
+	<select id="getSubmittedAssignmentFile" parameterType="java.util.Map" resultType="com.twoEx.bean.SubmittedAssignmentFileBean">
+	SELECT SBF_FILCODE AS SBFFILCODE,
+		   SBF_FILNAME AS SBFFILNAME,
+		   SBF_FILLOCATION AS SBFLOCATION
+	FROM SBF
+	WHERE (SBF_SUBASSCODE=#{subAssCode} AND SBF_SUBASSCLAPRDCODE=#{subAssClaPrdCode} AND SBF_SUBASSCLASELCODE=#{subAssClaSelCode} AND SBF_SUBASSCLACTECODE=#{subAssClaCteCode} AND SBF_SUBSTUORDBUYCODE=#{subStuOrdBuyCode} AND SBF_SUBSTUORDDATE=#{SubStuOrdDate})
+	</select>
+	-->
+	
+	<select id="getLocationInfo2" parameterType="com.twoEx.bean.ClassroomBean" resultType="com.twoEx.bean.LocationBean">
+	SELECT LOC_CLAPRDCODE AS LOCCLAPRDCODE,
+       LOC_CLASELCODE AS LOCCLASELCODE,
+       LOC_CLACTECODE AS LOCCLACTECODE,
+       LOC_CODE AS LOCCODE,
+       LOC_NAME AS LOCNAME,
+       LOC_INFO AS LOCINFO,
+       LOC_POS AS LOCPOS
+		FROM LOC WHERE (LOC_CLAPRDCODE = #{claPrdCode} AND LOC_CLASELCODE = #{claSelCode} AND LOC_CLACTECODE=#{claCteCode} )
+	</select>
+	
+	<!-- 판매자 클래스룸 리스트  -->
+	<select id= "getBuyClaList2" parameterType="com.twoEx.bean.ClassroomBean" resultType= "com.twoEx.bean.ClassroomBean" >
+		SELECT CLA_SELCODE AS CLASELCODE,
+      		C	LA_CTECODE AS CLACTECODE,
+       		CLA_PRDCODE AS CLAPRDCODE,
+      		CLA_INFO AS CLAINFO,
+       		PRD_NAME AS CLANAME,
+       		PRD_STARTDATE AS CLASTARTDATE,
+      		PRD_ENDDATE AS CLAENDDATE,
+       		TO_DATE(SYSDATE, 'YY-MM-DD')-PRD.PRD_STARTDATE AS CLASTATE1,
+       		PRD.PRD_ENDDATE-TO_DATE(SYSDATE, 'YY-MM-DD') AS CLASTATE2
+		FROM CLA INNER JOIN PRD ON(CLA.CLA_SELCODE=PRD.PRD_SELCODE AND CLA.CLA_CTECODE=PRD.PRD_CTECODE AND CLA.CLA_PRDCODE=PRD.PRD_CODE)
+		WHERE CLA_SELCODE = #{selCode}
+	</select>
+	<select id="insCurriculum" parameterType="com.twoEx.bean.CurriculumBean" resultType="com.twoEx.bean.CurriculumBean" >
+	INSERT INTO CUR(CUR_CODE, CUR_CLAPRDCODE, CUR_CLASELCODE, CUR_CLACTECODE, CUR_NAME, CUR_INFO, CUR_STARTDATE, CUR_ENDDATE, CUR_TIME)
+        VALUES (
+        (SELECT LPAD((SELECT NVL(MAX(CUR_CODE),0)+1 FROM CUR WHERE CUR_CLASELCODE=#{curClaSelCode} AND CUR_CLACTECODE=#{curClaCteCode} AND CUR_CLAPRDCODE=#{curClaPrdCode}),2,0)FROM DUAL)
+        , #{curClaPrdCode}, #{curClaSelCode}, #{curClaCteCode}, #{curName}, #{curInfo}, TO_DATE(#{curStartDate}, 'YYYY-MM-DD'), TO_DATE(#{curEndDate}, 'YYYY-MM-DD'), #{curTime})
+	</select>
+	<update id="updCurriculum" parameterType="com.twoEx.bean.CurriculumBean" >
+	UPDATE CUR
+	SET CUR_NAME=#{curName}, CUR_INFO=#{curInfo}, CUR_STARTDATE=TO_DATE(#{curStartDate},'YYYY-MM-DD'), CUR_ENDDATE= TO_DATE(#{curEndDate},'YYYY-MM-DD'), CUR_TIME=#{curTime}
+	WHERE CUR_CLASELCODE=#{curClaSelCode} AND CUR_CLACTECODE=#{curClaCteCode} AND CUR_CLAPRDCODE=#{curClaPrdCode} AND CUR_CODE=#{curCode}
+	</update>
+	<delete id="delCurriculum" parameterType="com.twoEx.bean.CurriculumBean">
+	DELETE CUR
+	WHERE CUR_CLASELCODE=#{curClaSelCode} AND CUR_CLACTECODE=#{curClaCteCode} AND CUR_CLAPRDCODE=#{curClaPrdCode} AND CUR_CODE=#{curCode}
+	</delete>
+	
+	<!-- 판매자 과제리스트 -->	
+	<select id="getAssignmentInfo2" parameterType="com.twoEx.bean.ClassroomBean" resultType="com.twoEx.bean.AssignmentBean"> 
+	SELECT ASS_CLASELCODE AS ASSCLASELCODE,
+       	ASS_CLACTECODE AS ASSCLACTECODE,
+       	ASS_CLAPRDCODE AS ASSCLAPRDCODE,
+       	ASS_CODE AS ASSCODE,
+       	ASS_NAME AS ASSNAME,
+       	ASS_INFO AS ASSINFO,
+       	ASS_STARTDATE AS ASSSTARTDATE,
+        ASS_ENDDATE AS ASSENDDATE,
+       	ASS_MAXGRADE AS ASSMAXGRADE,
+       	ASS_ENDDATE-TO_DATE(SYSDATE, 'YY-MM-DD') AS ASSSTATE,
+       	TO_DATE(SYSDATE, 'YY-MM-DD')- ASS.ASS_STARTDATE AS ASSSTATE2
+		FROM ASS
+		WHERE ASS_CLASELCODE=#{claSelCode} AND ASS_CLACTECODE=#{claCteCode} AND ASS_CLAPRDCODE=#{claPrdCode}
+	</select>
+	<!-- 판매자 과제 추가 -->
+	<insert id="insAssignment"	parameterType="com.twoEx.bean.AssignmentBean">
+		INSERT INTO ASS(ASS_CLASELCODE, ASS_CLACTECODE, ASS_CLAPRDCODE, ASS_CODE, ASS_NAME, ASS_INFO, ASS_STARTDATE, ASS_ENDDATE, ASS_MAXGRADE)
+		VALUES(#{assClaSelCode}, #{assClaCteCode}, #{assClaPrdCode}, 
+		(SELECT LPAD((SELECT NVL(MAX(ASS_CODE),0)+1 FROM ASS WHERE ASS_CLASELCODE=#{assClaSelCode} AND ASS_CLACTECODE=#{assClaCteCode} AND ASS_CLAPRDCODE=#{assClaPrdCode}),2,0)FROM DUAL)
+		,#{assName}, #{assInfo}, #{assStartDate}, #{assEndDate}, #{assMaxGrade})
+	</insert>
+	<!-- 판매자 과제 수정 -->
+	<!-- 꿀꺽 -->
+	<!--  판매자 과제 제출된 과제 파일 모두 삭제 -->
+	<delete id="delAllSubmittedAssignmentFile" parameterType="com.twoEx.bean.AssignmentBean">
+	DELETE SBF
+	WHERE SBF_SUBASSCLASELCODE=#{assClaSelCode} AND SBF_SUBASSCLACTECODE=#{assClaCteCode} AND SBF_SUBASSCLAPRDCODE=#{assClaPrdCode} AND SBF_SUBASSCODE=#{assCode}
+	</delete>
+	<!--  판매자 과제 제출된 과제 모두 삭제 -->
+	<delete id="delAllSubmittedAssignment" parameterType="com.twoEx.bean.AssignmentBean">
+	DELETE SUB
+	WHERE SUB_ASSCLASELCODE=#{assClaSelCode} AND SUB_ASSCLACTECODE=#{assClaCteCode} AND SUB_ASSCLAPRDCODE=#{assClaPrdCode} AND SUB_ASSCODE=#{assCode}
+	</delete>
+	<!--  판매자 과제 삭제 -->
+	<!-- 꿀꺽 -->
+	<select id="insNotice" parameterType="com.twoEx.bean.NoticeBean" resultType="com.twoEx.bean.NoticeBean" >
+	INSERT INTO NTC(NTC_CODE, NTC_CLAPRDCODE, NTC_CLASELCODE, NTC_CLACTECODE, NTC_NAME, NTC_INFO, NTC_DATE)
+        VALUES (
+        (SELECT LPAD((SELECT NVL(MAX(NTC_CODE),0)+1 FROM NTC WHERE NTC_CLASELCODE=#{ntcClaSelCode} AND NTC_CLACTECODE=#{ntcClaCteCode} AND NTC_CLAPRDCODE=#{ntcClaPrdCode}),2,0)FROM DUAL)
+        , #{ntcClaPrdCode}, #{ntcClaSelCode}, #{ntcClaCteCode}, #{ntcName}, #{ntcInfo}, SYSDATE)
+	</select>
+	<update id="updNotice" parameterType="com.twoEx.bean.NoticeBean" >
+	UPDATE NTC
+	SET NTC_NAME=#{ntcName}, NTC_INFO=#{ntcInfo}, NTC_DATE=SYSDATE
+	WHERE NTC_CLASELCODE=#{ntcClaSelCode} AND NTC_CLACTECODE=#{ntcClaCteCode} AND NTC_CLAPRDCODE=#{ntcClaPrdCode} AND NTC_CODE=#{ntcCode}
+	</update>
+	<delete id="delNotice" parameterType="com.twoEx.bean.NoticeBean">
+	DELETE NTC
+	WHERE NTC_CLASELCODE=#{ntcClaSelCode} AND NTC_CLACTECODE=#{ntcClaCteCode} AND NTC_CLAPRDCODE=#{ntcClaPrdCode} AND NTC_CODE=#{ntcCode}
+	</delete>
+	<insert id="insSubmittedAssignment" parameterType="com.twoEx.bean.SubmittedAssignmentBean">
+		INSERT INTO SUB(SUB_ASSCLASELCODE, SUB_ASSCLACTECODE, SUB_ASSCLAPRDCODE, SUB_ASSCODE, SUB_STUORDBUYCODE, SUB_STUORDDATE, SUB_GRADE, SUB_INFO, SUB_DATE)
+		VALUES (#{subAssClaSelCode},#{subAssClaCteCode},#{subAssClaPrdCode},#{subAssCode},#{subStuOrdBuyCode},TO_DATE(#{subStuOrdDate},'YYYY-MM-DD HH24:MI:SS'), DEFAULT, #{subInfo}, SYSDATE)
+	</insert>
+	<update id="insSubmittedAssignmentFile" parameterType="com.twoEx.bean.SubmittedAssignmentBean">
+		<foreach item="fileInfo" collection="submittedAssignmentFile" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
+			INTO SBF(SBF_SUBASSCLASELCODE, SBF_SUBASSCLACTECODE, SBF_SUBASSCLAPRDCODE, SBF_SUBASSCODE, SBF_SUBSTUORDBUYCODE, SBF_SUBSTUORDDATE, SBF_FILCODE,SBF_FILNAME, SBF_LOCATION )  
+			VALUES(#{subAssClaSelCode}, #{subAssClaCteCode}, #{subAssClaPrdCode}, #{subAssCode},#{subStuOrdBuyCode}, TO_DATE(#{subStuOrdDate},'YYYY-MM-DD HH24:MI:SS'), #{fileInfo.sbfFilCode},#{fileInfo.sbfFilName},#{fileInfo.sbfLocation})
+		</foreach>
+	</update>
+	
+	<delete id="unsubmitAssignmentFile" parameterType="com.twoEx.bean.SubmittedAssignmentBean">
+		DELETE SBF 
+		WHERE SBF_SUBASSCLASELCODE = #{subAssClaSelCode} AND SBF_SUBASSCLACTECODE=#{subAssClaCteCode} AND SBF_SUBASSCLAPRDCODE=#{subAssClaPrdCode} AND SBF_SUBASSCODE=#{subAssCode} AND SBF_SUBSTUORDBUYCODE=#{subStuOrdBuyCode} AND SBF_SUBSTUORDDATE = TO_DATE(#{subStuOrdDate},'YYYY-MM-DD HH24:MI:SS')
+	</delete>
+	<delete id="unsubmitAssignment" parameterType="com.twoEx.bean.SubmittedAssignmentBean">
+		DELETE SUB 
+		WHERE SUB_ASSCLASELCODE = #{subAssClaSelCode} AND SUB_ASSCLACTECODE=#{subAssClaCteCode} AND SUB_ASSCLAPRDCODE=#{subAssClaPrdCode} AND SUB_ASSCODE=#{subAssCode} AND SUB_STUORDBUYCODE=#{subStuOrdBuyCode} AND SUB_STUORDDATE = TO_DATE(#{subStuOrdDate},'YYYY-MM-DD HH24:MI:SS')
+	</delete>
+	<select id="getSubmittedAssignmentFile" parameterType="com.twoEx.bean.SubmittedAssignmentBean" resultType="com.twoEx.bean.SubmittedAssignmentFileBean">
+	    SELECT SBF_FILCODE AS SBFFILCODE,
+	    	   SBF_FILNAME AS SBFFILNAME,
+	    	   SBF_LOCATION AS SBFLOCATION
+	    FROM SBF
+	    WHERE SBF_SUBASSCLASELCODE = #{subAssClaSelCode} AND SBF_SUBASSCLACTECODE=#{subAssClaCteCode} AND SBF_SUBASSCLAPRDCODE=#{subAssClaPrdCode} AND SBF_SUBASSCODE=#{subAssCode} AND SBF_SUBSTUORDBUYCODE=#{subStuOrdBuyCode} AND SBF_SUBSTUORDDATE = TO_DATE(#{subStuOrdDate},'YYYY-MM-DD HH24:MI:SS')
+	</select>
+	
+	
+</mapper>

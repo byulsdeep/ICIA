@@ -1,0 +1,96 @@
+@charset "UTF-8";
+
+
+/** [모달 2번째 ] **********************************************************/
+
+.modal2__root{
+    position: fixed;
+    top:0px;
+    bottom:0px;
+    width : 100%;
+    height : 100%;    
+    display : none;
+    z-index: 20;
+}
+
+.modal2__background{
+    position :fixed;
+    width : 100%;
+    height : 100%;
+
+    background-color: rgba(0, 0, 0, 0.5);
+    -webkit-tap-highlight-color: transparent;
+}
+  
+.modal2__wrapper{
+    width : 100%;
+    height : 100%;
+
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+  .modal2__wrapper2{
+    width : 700px;
+    height : 400px;
+  }
+
+  .modal2__container{
+    position:relative;
+    top: 10px;
+    /*border:dotted 2px grey;*/
+    width : 700px;
+    height : 400px;
+  }
+  
+  .modal2__close{
+    position: absolute;
+    height : 15px;
+    width : 15px;
+    top: 5px;
+    left: 660px;
+  
+    font-size: 30px;
+  }
+  
+  .modal2__content{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  
+    /*border: solid 1px var(--color-headerGrey);*/
+    border-radius: 20px;
+    box-shadow: 0.5px 0.5px 2px 0px rgb(87, 87, 87);
+  
+    width : 100%;
+    height : 100%;
+    background-color: white;
+    
+    overflow: hidden;
+  }
+  
+  .modal2__part__left,
+  .modal2__part__right{
+    /*border:dotted 2px grey;*/
+    
+    padding : 15px 30px;
+  
+  }
+  
+  .modal2__part__left{
+    width : 60%;
+    height : 705%;
+  
+    background-color: #73aace;
+    background: url("breakfast.jpg") center/cover no-repeat;
+    background-size: contain;
+  
+  }
+  
+  .modal2__part__right{
+    width : 40%;
+    height : 100%;
+  }
+  
+  

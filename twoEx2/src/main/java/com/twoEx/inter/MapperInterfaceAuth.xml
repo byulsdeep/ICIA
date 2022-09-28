@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.twoEx.inter.MapperInterfaceAuth">
+	<select id="isBuyer" parameterType="com.twoEx.bean.BuyerBean" resultType="string">
+		SELECT BUY_CODE FROM BUY WHERE BUY_CODE = #{buyCode}
+	</select> 
+	<insert id="insBuyerAccessLog" parameterType="com.twoEx.bean.BuyerAccessLogBean">
+		insert into bal(bal_buycode, bal_date, bal_action) values(#{buyerAccessLogCode}, sysdate, #{buyerAccessLogAction})
+	</insert>
+	<select id="isBuyerAccess" parameterType="com.twoEx.bean.BuyerAccessLogBean" resultType="int">
+		select sum(bal_action) from bal where bal_buycode = #{buyerAccessLogCode}
+	</select>
+	<insert id="insBuyer" parameterType="com.twoEx.bean.BuyerBean">
+		INSERT INTO BUY(BUY_CODE,BUY_EMAIL,BUY_AGE,BUY_GENDER,BUY_REGION,BUY_NICKNAME,BUY_PROFILE)
+		VALUES(#{buyCode},#{buyEmail},#{buyAge},#{buyGender},#{buyRegion},#{buyNickname},#{buyProfile})	
+	</insert>
+	<insert id="insSeller" parameterType="com.twoEx.bean.SellerBean">
+		INSERT INTO SEL(SEL_CODE,SEL_EMAIL,SEL_NICKNAME,SEL_PROFILE, SEL_SHOPNAME, SEL_PASSWORD)
+		VALUES(#{selCode},#{selEmail},#{selNickname},#{selProfile}, #{selShopName}, #{selPassword})	
+	</insert>
+	<select id="isSeller" parameterType="com.twoEx.bean.SellerBean" resultType="int">
+		SELECT COUNT(*) FROM SEL WHERE SEL_CODE = #{selCode}
+	</select> 
+	<select id="getSellerEncodedPassword" parameterType="com.twoEx.bean.SellerBean" resultType="string">
+		SELECT SEL_PASSWORD FROM SEL WHERE SEL_CODE = #{selCode}
+	</select> 
+	<select id="isSellerAccess" parameterType="com.twoEx.bean.SellerAccessLogBean" resultType="int">
+		select sum(sal_action) from sal where sal_selCode = #{salSelCode}
+	</select>
+	<insert id="insSellerAccessLog" parameterType="com.twoEx.bean.SellerAccessLogBean">
+		insert into sal(sal_selCode, sal_date, sal_action) values(#{salSelCode}, sysdate, #{salAction})
+	</insert>
+	<select id="getSellerAccessInfo" parameterType="com.twoEx.bean.SellerBean" resultType="com.twoEx.bean.SellerBean">
+		SELECT SEL_CODE AS SELCODE,
+				SEL_EMAIL AS SELEMAIL,
+				SEL_NICKNAME AS SELNICKNAME,
+				SEL_PROFILE AS SELPROFILE,
+				SEL_SHOPNAME AS SELSHOPNAME
+				FROM SEL WHERE SEL_CODE = #{selCode}
+	</select>
+	<select id="getBuyerAccessInfo" parameterType="com.twoEx.bean.BuyerBean" resultType="com.twoEx.bean.BuyerBean">
+		SELECT BUY_CODE AS BUYCODE,
+				BUY_EMAIL AS BUYEMAIL,
+				BUY_AGE AS BUYAGE,
+				BUY_GENDER AS BUYGENDER,
+				BUY_REGION AS BUYREGION,
+				BUY_NICKNAME AS BUYNICKNAME,
+				BUY_PROFILE AS BUYPROFILE 
+				FROM BUY WHERE BUY_CODE = #{buyCode}
+	</select>
+	<update id="updateBuyerInfo" parameterType="com.twoEx.bean.BuyerBean">
+		UPDATE BUY SET BUY_NICKNAME = #{buyNickname}, BUY_PROFILE = #{buyProfile}
+		WHERE BUY_CODE = #{buyCode}
+	</update>
+	<select id="checkSelCode" parameterType="com.twoEx.bean.SellerBean" resultType="int">
+		SELECT COUNT(*) FROM SEL WHERE SEL_CODE = #{selCode}
+	</select>
+</mapper>

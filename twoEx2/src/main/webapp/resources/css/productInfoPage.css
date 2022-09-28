@@ -1,0 +1,300 @@
+@charset "UTF-8";
+
+.common__wrapper.lse{
+  margin : auto;
+  width : 1300px;
+}
+
+.inner__wrapper{
+  width : 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  flex-flow: row nowrap;
+  
+}
+
+/* [ 상품정보 페이지 : 상품상세페이지 ]  ******************************/
+
+
+/* 인포 공통 **************************************************/
+.product__info__zone,
+.other__Info__zone{
+  /*border : dotted 1px grey;*/
+  padding: 1rem 1rem;
+}
+
+.product__info__zone{
+  width : 900px;  
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+/** product__info **************************************************/
+.product__info{
+  margin-bottom : 30px auto;
+  width: 100%;
+  border : solid 2px var(--color-headerGrey);
+  /*border-radius: 10px;*/
+
+  
+}
+
+.product__info.product__title{
+  height :55px;
+  /*border : solid 2px var(--color-headerGrey);*/
+  border:transparent;
+  padding : 5px 10px;
+  /*
+  border-top : solid 4px var(--color-headerGrey);
+  border-bottom: solid 4px var(--color-headerGrey);
+  /border-top : solid 4px var(--color-nightFade-purple);
+  */
+  border-bottom: solid 4px var(--color-nightFade-purple);
+  margin-bottom: 15px;
+
+}
+
+.product__info.product__title h1{
+  margin: 1px;
+  margin-bottom: 5px;
+  padding : 5px;
+  padding-bottom : 20px;
+}
+
+.product__info.photo{
+  min-height : 300px;
+  border:transparent;
+  border-radius: 5px;
+  background-color: var(--color-light-white);
+  
+  text-align: center;
+  padding: 10px;
+  margin-bottom: 15px;
+}
+.product__info.product__img{
+  border:transparent;
+  max-height : 400px;
+  width:auto;
+  height:100%;
+  padding : 15px;
+  border-radius: 5px;
+}
+
+
+.product__info.option{
+  padding: 15px 20px;
+  font-size: 19px;
+  font-weight: bold;
+  margin-bottom: 15px;
+
+}
+
+.product__info.option span{
+  margin-right : 10px;
+}
+
+.prdType,
+.prdStartDate,
+.prdEndDate{
+  color : var(--color-dark-pink);
+
+}
+
+.product__info.description{
+  height : 400px;
+  padding : 20px;
+  margin-bottom: 15px;
+
+}
+
+.product__info.description h3{
+  font-size: 20px;
+  font-weight: 400;
+
+}
+
+/* [ 오른쪽 other__info ] ****************************************/
+.other__Info__zone{
+    padding: 10px;
+  
+  
+}
+
+
+.other__info{ /* 오른쪽 인포 공통요소 */
+    margin: 0 10px;
+    margin-bottom: 10px;
+
+    width: 20rem;
+
+    /* border : dotted 1px grey; */
+}
+
+
+/* 셀러 정보 ******************************/
+.other__info.seller{
+  height: 9rem;
+  border : solid 2px var(--color-headerGrey);
+  /*border-radius: 10px;*/
+  position: -webkit-sticky;
+  position: sticky;
+  top: 150px;
+  box-shadow: 1.5px 1.5px 10px 1px rgb(205, 205, 205);
+}
+
+.seller__blank{
+  /*background-color: var(--color-roseQuartz);*/
+  background-color: var(--color-lime);
+
+}
+
+
+.seller__title{
+  /* border : dotted 1px grey; */
+  padding : 5px 10px;
+
+  background-color: var(--color-headerGrey);
+}
+
+
+
+.seller__blank,
+.seller__info{
+  position : absolute;
+  display:inline-block;
+
+  height : 100%;
+  /*border : dotted 1px grey;*/
+}
+
+.seller__blank{
+  left : 0;
+  width : 20%;
+  
+}
+
+.seller__info{
+  right: 0;
+  width : 80%;
+}
+
+.seller__info__btnDiv{
+  display: flex;
+  justify-content: center;
+  align-content: center;
+
+  padding : 30px 15px;
+  font-size: 18px;
+
+}
+
+.seller__info__btn{
+  
+  height : 2rem;
+  border : transparent;
+  padding : 0.3rem 1rem;
+
+  background-color: transparent;
+  font-size:var(--font-regular);
+  font-weight: var(--weight-semi-bold);
+  color:rgb(75, 165, 156);
+
+  cursor: pointer;
+
+  
+}
+
+
+.seller__info__btn:hover{
+
+  color : var(--color-dark-pink);
+}
+
+
+
+
+/* 가격정보 */
+.other__info.price{
+  position: -webkit-sticky;
+  position: sticky;
+  
+  top: 305px;
+
+  height : 8rem;
+  border : solid 2px var(--color-headerGrey);
+  /*border-radius: 10px;*/
+  padding : 1rem;
+  box-shadow: 1px 1px 5px 1px rgb(205, 205, 205);
+
+}
+
+.price__div{
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+
+
+  margin-bottom : 1rem;
+  height : 2rem;
+
+  font-size: var(--font-large);
+}
+
+.price__title__div{
+  width: 70px;
+
+}
+.price__title{
+  width: 65px;
+
+}
+
+.price__tag__div{
+  
+
+}
+.price__tag__price{
+  color : var(--color-veryPeri);
+  font-size: var(--font-large);
+  font-weight: bold;
+}
+
+
+/* 버튼 */
+
+
+.price__btnDiv{
+  text-align: center;
+  display : flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.wishBtn{
+  margin-right : 25px;
+  height : 45px;
+  width : 45px;
+
+  border:transparent;
+  background-color: transparent;
+  font-size: 25px;
+  color: red;
+
+}
+
+
+.fa-regular.fa-heart,
+.fa-solid.fa-heart{
+  cursor: pointer;
+  
+}
+
+.moveOrder{
+  width : 200px;
+  height : 45px;
+  font-size: 18px;
+}

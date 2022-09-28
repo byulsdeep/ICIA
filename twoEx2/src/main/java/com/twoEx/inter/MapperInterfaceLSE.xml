@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.twoEx.inter.MapperInterfaceLSE">
+	<!-- 카테고리 목록 불러오기 -->
+	<select id="getCategories" resultType="com.twoEx.bean.CategoriesBean">
+		SELECT
+			CTE_CODE AS cteCode,
+			CTE_NAME AS cteName,
+			CTE_SYMBOL AS cteSymbol
+		FROM CTE 
+		ORDER BY CTE_CODE ASC
+	</select>
+	<!-- 판매순위 -->
+	<select id="getProductListByRank" resultType="com.twoEx.bean.ProductBean">
+		SELECT 
+		    NUM AS num,
+		    rankNum AS rankNum,
+		    countNum AS countNum,
+		    PRD_CODE AS prdCode,
+		    PRD_SELCODE AS prdSelCode,
+		    PRD_CTECODE AS prdCteCode,
+		    PRD_NAME AS prdName,
+		    PRD_TYPE AS prdType,
+		    TO_CHAR(PRD_PRICE, 'FM999,999,999,999,999') AS prdPrice,
+		    PRD_INFO AS prdInfo,
+		    PRD_STARTDATE AS prdStartDate,
+		    PRD_ENDDATE AS prdEndDate
+		FROM(SELECT ROWNUM NUM, PRD_ORDER. * 
+		    FROM (SELECT 
+		            DENSE_RANK() OVER(ORDER BY COUNT(*) DESC) AS rankNum,
+		            COUNT(*) AS countNum,
+		            PRD_CODE,
+		            PRD_SELCODE,
+		            PRD_CTECODE,
+		            PRD_NAME,
+		            PRD_TYPE,
+		            PRD_PRICE,
+		            PRD_INFO,
+		            PRD_STARTDATE,
+		            PRD_ENDDATE
+		        FROM(SELECT 
+		                *
+		            FROM ORD INNER JOIN PRD
+		                        ON ORD.ORD_PRDCTECODE = PRD_CTECODE AND ORD.ORD_PRDSELCODE = PRD_SELCODE AND ORD.ORD_PRDCODE = PRD.PRD_CODE)
+		        GROUP BY PRD_CTECODE, PRD_SELCODE, PRD_CODE, PRD_NAME, PRD_TYPE, PRD_PRICE, PRD_INFO, PRD_STARTDATE, PRD_ENDDATE) PRD_ORDER)
+		WHERE NUM BETWEEN 1 AND 4
+	</select>
+	<!-- 특정 카테고리 상품 토탈 넘버 -->
+	<select id ="getTotalNumByCategory" parameterType="com.twoEx.bean.CategoriesBean" resultType="_int">
+		SELECT COUNT(*) FROM PRD
+		WHERE PRD_CTECODE = #{cteCode}
+	</select>
+	<!-- 특정 카테고리 상품 불러오기 페이징 -->
+	<select id ="getProductListByCategory2" parameterType="com.twoEx.bean.CategoriesBean" resultType="com.twoEx.bean.ProductBean">
+		SELECT 
+		    NUM AS num,
+		    PRD_CTECODE AS prdCteCode,
+		    PRD_SELCODE AS prdSelCode,
+		    PRD_CODE AS prdCode,
+		    PRD_NAME AS prdName,
+		    PRD_TYPE AS prdType,
+		    PRD_INFO AS prdInfo,
+		    TO_CHAR(PRD_PRICE, 'FM999,999,999,999,999') AS prdPrice,
+		    PRD_STARTDATE AS prdStartDate,
+		    PRD_ENDDATE AS prdEndDate
+		 FROM (SELECT ROWNUM NUM, PRD_ORDER. * FROM (SELECT * FROM PRD WHERE PRD_CTECODE =#{cteCode} ORDER BY PRD_STARTDATE ASC) PRD_ORDER) 
+		 WHERE NUM BETWEEN #{numStart} AND #{numEnd}
+	</select>
+	<!-- 특정 카테고리 상품 불러오기 -->
+	<select id="getProductListByCategory" parameterType="com.twoEx.bean.CategoriesBean" resultType="com.twoEx.bean.ProductBean">
+		SELECT
+			PRD_CODE AS prdCode,
+			PRD_SELCODE AS prdSelCode,
+			PRD_CTECODE AS prdCteCode,
+			PRD_NAME AS prdName,
+			PRD_INFO AS prdInfo,
+			PRD_TYPE AS prdType,
+			PRD_STARTDATE AS prdStartDate,
+			PRD_ENDDATE AS prdEndDate,
+			TO_CHAR(PRD_PRICE, 'FM999,999,999,999,999') AS prdPrice
+		FROM PRD WHERE PRD_CTECODE = #{cteCode}
+	</select>
+	<!-- 특정 셀러 정보 -->
+	<select id="getSellerInfo2" parameterType="com.twoEx.bean.SellerBean" resultType="com.twoEx.bean.SellerBean">
+		SELECT
+		    SEL_CODE AS selCode,
+		    SEL_SHOPNAME AS selShopName,
+		    SEL_NICKNAME AS selNickname,
+		    SEL_EMAIL AS selEmail,
+		    SEL_PROFILE AS selProfile
+		FROM SEL
+		WHERE SEL_CODE = #{selCode}
+	</select>
+	<!-- 특정 셀러 상품 갯수 -->
+	<select id ="getTotalNumBySeller" parameterType="com.twoEx.bean.SellerBean" resultType="_int">
+		SELECT COUNT(*) FROM PRD
+		WHERE PRD_SELCODE = #{selCode}
+	</select>
+	<!-- 특정 셀러 상품 불러오기 -->
+		<select id="getProductListBySeller" parameterType="com.twoEx.bean.SellerBean" resultType="com.twoEx.bean.ProductBean">
+		SELECT
+			PRD_CODE AS prdCode,
+			PRD_SELCODE AS prdSelCode,
+			PRD_CTECODE AS prdCteCode,
+			PRD_NAME AS prdName,
+			PRD_INFO AS prdInfo,
+			PRD_TYPE AS prdType,
+			PRD_STARTDATE AS prdStartDate,
+			PRD_ENDDATE AS prdEndDate,
+			TO_CHAR(PRD_PRICE, 'FM999,999,999,999,999') AS prdPrice
+		FROM PRD WHERE PRD_SELCODE = #{selCode}
+	</select>
+	
+	<!-- 검색 상품 토탈 넘버 -->
+	<select id ="getTotalNumBySearch" parameterType="com.twoEx.bean.CategoriesBean" resultType="_int">
+		SELECT 
+		    COUNT(*)
+		FROM (SELECT ROWNUM NUM, PRD_ORDER. * FROM (SELECT * FROM PRD WHERE prd_name LIKE '%'||#{keyword}||'%' OR prd_info LIKE '%'||#{keyword}||'%' ORDER BY PRD_STARTDATE ASC) PRD_ORDER)
+	</select>
+	<!-- 상품 검색하기  -->
+	<select id ="getProductListBySearch" parameterType="com.twoEx.bean.CategoriesBean" resultType="com.twoEx.bean.ProductBean">
+		SELECT 
+			NUM AS num,
+			PRD_CTECODE AS prdCteCode,
+			PRD_SELCODE AS prdSelCode,
+			PRD_CODE AS prdCode,
+			PRD_NAME AS prdName,
+			PRD_TYPE AS prdType,
+			PRD_INFO AS prdInfo,
+			TO_CHAR(PRD_PRICE, 'FM999,999,999,999,999') AS prdPrice,
+			PRD_STARTDATE AS prdStartDate,
+			PRD_ENDDATE AS prdEndDate
+		FROM (SELECT ROWNUM NUM, PRD_ORDER. * FROM (SELECT * FROM PRD WHERE prd_name LIKE '%'||#{keyword}||'%' OR prd_info LIKE '%'||#{keyword}||'%' ORDER BY PRD_STARTDATE ASC) PRD_ORDER)
+		WHERE NUM BETWEEN #{numStart} AND #{numEnd}
+	</select>
+	<!-- 상품 사진 검색하기 -->
+	<select id="getProductFileUrl" parameterType="com.twoEx.bean.ProductBean" resultType="com.twoEx.bean.ProductFileBean">
+		SELECT 
+			PRF_FILCODE AS prfFileCode,
+			PRF_PRDCODE AS prfPrdCode,
+			PRF_PRDCTECODE AS prfPrdCteCode,
+			PRF_PRDSELCODE AS prfPrdSelCode,
+			PRF_FILNAME AS prfFileName,
+			PRF_LOCATION AS prfLocation
+		FROM PRF 
+		WHERE 
+			PRF_FILCODE='0000' AND 
+			PRF_PRDCTECODE = #{prdCteCode} AND 
+			PRF_PRDSELCODE = #{prdSelCode} AND 
+			PRF_PRDCODE = #{prdCode}
+	</select>
+	<select id="getProductInfo_LSE" parameterType="com.twoEx.bean.ProductBean" resultType="com.twoEx.bean.ProductBean">
+		SELECT
+			PRD_CODE AS prdCode,
+			PRD_SELCODE AS prdSelCode,
+			PRD_CTECODE AS prdCteCode,
+			PRD_NAME AS prdName,
+			PRD_INFO AS prdInfo,
+			PRD_TYPE AS prdType,
+			PRD_STARTDATE AS prdStartDate,
+			PRD_ENDDATE AS prdEndDate,
+			TO_CHAR(PRD_PRICE, 'FM999,999,999,999,999') AS prdPrice
+		FROM PRD 
+		<!-- WHERE PRD_CTECODE = '99' AND PRD_SELCODE = 'we2857' AND PRD_CODE = '90001'-->
+		WHERE PRD_CTECODE = #{prdCteCode} AND PRD_SELCODE = #{prdSelCode} AND PRD_CODE = #{prdCode}
+	</select> 
+	<!-- [ 셀러 정보 관련 ] ****************************** -->
+	<select id="getSellerInfo" parameterType="com.twoEx.bean.ProductBean" resultType="com.twoEx.bean.SellerBean">
+		SELECT 
+		    SEL_CODE AS selCode,
+		    SEL_NICKNAME AS selNickname,
+		    SEL_SHOPNAME AS selShopName,
+		    SEL_EMAIL AS selEmail,
+		    SEL_PROFILE AS selProfile
+		FROM SEL
+		WHERE SEL_CODE = #{prdSelCode}
+	</select>
+	<!-- [ VHS 조회기록   및   위시  관련 ] -->
+	<!-- VHS 상품 조회 여부 확인 -->
+	<select id="isViewHistoryPast" parameterType="com.twoEx.bean.ViewHistoryBean" resultType="string">
+		SELECT 
+	    	COUNT(*)
+		FROM VHS
+		WHERE VHS_BUYCODE =#{vhsBuyCode} AND VHS_PRDCTECODE=#{vhsPrdCteCode} 
+		AND VHS_PRDSELCODE=#{vhsPrdSelCode} AND VHS_PRDCODE=#{vhsPrdCode}
+	</select>
+	<select id="isViewHistory" parameterType="com.twoEx.bean.ViewHistoryBean" resultType="com.twoEx.bean.ViewHistoryBean">
+		SELECT 
+	    	VHS_BUYCODE AS vhsBuyCode,
+	    	VHS_PRDCTECODE AS vhsPrdCteCode,
+	    	VHS_PRDSELCODE AS vhsPrdSelCode,
+	    	VHS_PRDCODE AS vhsPrdCode,
+	    	VHS_DATE AS vhsDate,
+	    	VHS_WISHACTION AS vhsWishAction
+		FROM VHS
+		WHERE VHS_BUYCODE =#{vhsBuyCode} AND VHS_PRDCTECODE=#{vhsPrdCteCode} 
+		AND VHS_PRDSELCODE=#{vhsPrdSelCode} AND VHS_PRDCODE=#{vhsPrdCode}
+	</select>
+	<!--VHS 최초조회 Insert -->
+	<insert id="insVHS" parameterType="com.twoEx.bean.ViewHistoryBean">
+		INSERT INTO VHS(VHS_BUYCODE, VHS_PRDCTECODE, VHS_PRDSELCODE, VHS_PRDCODE, VHS_DATE, VHS_WISHACTION)
+		VALUES(#{vhsBuyCode}, #{vhsPrdCteCode}, #{vhsPrdSelCode}, #{vhsPrdCode}, SYSDATE, 'N')
+	</insert>
+	<!-- VHS 조회 날짜 업데이트 -->
+	<update id="updVhsDate" parameterType="com.twoEx.bean.ViewHistoryBean"> 
+		UPDATE VHS
+		SET VHS_DATE = SYSDATE
+		WHERE VHS_BUYCODE=#{vhsBuyCode} AND VHS_PRDCTECODE=#{vhsPrdCteCode} AND VHS_PRDSELCODE=#{vhsPrdSelCode} AND VHS_PRDCODE=#{vhsPrdCode}
+	</update>
+	<!-- VHS 위시Y update -->
+	<update id="updVhsYes" parameterType="com.twoEx.bean.ViewHistoryBean">
+		UPDATE VHS
+		SET VHS_WISHACTION = 'Y'
+		WHERE VHS_BUYCODE=#{vhsBuyCode} AND VHS_PRDCTECODE=#{vhsPrdCteCode} AND VHS_PRDSELCODE=#{vhsPrdSelCode} AND VHS_PRDCODE=#{vhsPrdCode}
+	</update>
+	<!-- VHS 위시N update -->
+	<update id="updVhsNo" parameterType="com.twoEx.bean.ViewHistoryBean">
+		UPDATE VHS
+		SET VHS_WISHACTION = 'N'
+		WHERE VHS_BUYCODE=#{vhsBuyCode} AND VHS_PRDCTECODE=#{vhsPrdCteCode} AND VHS_PRDSELCODE=#{vhsPrdSelCode} AND VHS_PRDCODE=#{vhsPrdCode}
+	</update>
+<!-- [ 팔로우 관련 ] ****************************** -->
+	<!-- 팔로우 상태조회 -->
+	<select id="isFollow" parameterType="com.twoEx.bean.ViewHistoryBean" resultType="com.twoEx.bean.FollowBean">
+		SELECT
+		    FOL_BUYCODE AS folBuyCode,
+		    FOL_SELCODE AS folSelCode
+		FROM FOL 
+		WHERE FOL_BUYCODE = #{vhsBuyCode} AND FOL_SELCODE = #{vhsPrdSelCode}
+	</select>
+	<!-- 팔로우 입력 -->
+	<insert id="insFollow" parameterType="com.twoEx.bean.FollowBean">
+		INSERT INTO FOL(FOL_BUYCODE, FOL_SELCODE)
+		VALUES(#{folBuyCode}, #{folSelCode})
+	</insert>
+	<!-- 팔로우 삭제 -->
+	<delete id="delFollow" parameterType="com.twoEx.bean.FollowBean">	
+		DELETE FROM FOL
+		WHERE FOL_BUYCODE = #{folBuyCode} AND FOL_SELCODE = #{folSelCode}
+	</delete>
+</mapper>

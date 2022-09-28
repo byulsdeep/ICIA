@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd
+		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<!-- DBCP : HIKARICP >> 프로젝트 시작시 특정 DB와의 커넥션유지 -->
+	
+	<bean id="JDBCP" class="com.zaxxer.hikari.HikariConfig">
+		<property name="driverClassName" value="oracle.jdbc.OracleDriver"></property>
+		<property name="jdbcUrl" value="jdbc:oracle:thin:@errorkillersdb.hoonzzang.com:22000:xe"></property>
+		<property name="username" value="khb"></property>
+		<property name="password" value="1111"></property>
+		<property name="maximumPoolSize" value="5"></property>
+	</bean>
+	
+	<!-- DBCP using >DataSource -->
+	<bean id="DataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+		<constructor-arg ref="JDBCP"></constructor-arg>	
+	</bean>
+	
+	
+	<bean id="sessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="DataSource"></property>	
+	</bean>
+	
+	<!--  SqlSessionTemplate -->
+		<bean id = "dbcpSession" class ="org.mybatis.spring.SqlSessionTemplate">
+			<constructor-arg name="sqlSessionFactory" ref ="sessionFactory"></constructor-arg>
+		</bean>
+	
+	<!--  Transaction -->
+		<bean id="pmsTran" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+			<property name="dataSource" ref = "DataSource"></property>
+		</bean>
+
+	<tx:annotation-driven></tx:annotation-driven>
+	<!--컴포넌트어노테이션 읽어옴 -->
+	<mybatis-spring:scan base-package="com.twoEx.inter"/>
+	<!-- mapper 경로 -->
+
+</beans>
