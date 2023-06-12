@@ -1,5 +1,5 @@
 # Expert Exchange (Two-Ex) – (Spring MVC) 프로젝트
-
+<br /><img src="twoEx.gif" alt="TWO EX GIF" width="800">
 ## 프로젝트 개요
 Expert Exchange (Two-Ex)는 전문기술 쇼핑몰과 학습관리시스템 서비스를 제공하는 웹사이트입니다. 이 프로젝트는 인천일보아카데미에서 2022년 8월 8일부터 2022년 9월 23일까지 진행되었습니다.
 
